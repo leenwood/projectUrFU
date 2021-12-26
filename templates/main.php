@@ -37,7 +37,7 @@ $rankName = [
                 <h1 class="menu__left-name"><?php echo $fio[0] ?> <?php echo $fio[1] ?> <?php echo $fio[2] ?></h1>
                 <div class="row">
                     <div class="menu__left-birthday col-6">Дата Рождения: <span>05.05.2001</span></div>
-                    <div class="menu__left-rang col-6">Звание: <span><?php echo $rankName[$rank['curRank']] ?></span></div>
+                    <div class="menu__left-rang col-6">Звание: <span><?php echo $zvanie ?></span></div>
                 </div>
             </div>
             <div class="menu__right col-2 offset-md-4"><span class="menu__right-info mb-2 shadow bg-body">id: <?php echo $_COOKIE['pAccount'] ?>

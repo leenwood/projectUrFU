@@ -41,7 +41,8 @@ class IndexController extends BaseController
     public function indexAction(Request $request)
     {
         $fio = $this->articleRepository->getFio();
-        $rankid = $this->articleRepository->getRank();
+        $rankid = $this->articleRepository->getcurRank();
+        $rankname = $this->articleRepository->getRankName();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -49,6 +50,7 @@ class IndexController extends BaseController
                 'style' => $this->style,
                 'rank' => $rankid,
                 'fio' => $fio,
+                'zvanie' => $rankname['rank'],
             ])
         );
     }

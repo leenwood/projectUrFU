@@ -12,9 +12,17 @@ class ArticleRepository
     /**
      * Возращает номер звания
      */
-    public function getRank()
+    public function getcurRank()
     {
         $sql = sprintf("SELECT curRank FROM users WHERE id = %s", $_COOKIE['pAccount']);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    public function getRankName()
+    {
+        $sql = sprintf("SELECT rank FROM users WHERE id = %s", $_COOKIE['pAccount']);
         $statement = $this->connection->prepare($sql);
         $statement->execute();
         return $statement->fetch();
