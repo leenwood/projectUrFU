@@ -10,7 +10,8 @@ CREATE TABLE  IF NOT EXISTS users (
     joinDate date not null,
     dateBirth date not null,
     club varchar (255) not null,
-    avatars varchar (255) not null
+    avatars varchar (255) not null,
+    rank varchar (255) not null
     ) ENGINE=InnoDB;
 
 CREATE TABLE  IF NOT EXISTS ranks (
@@ -50,3 +51,7 @@ ALTER TABLE payments add CONSTRAINT FK_payments_users
 ALTER TABLE ranks add CONSTRAINT FK_ranks_users
     FOREIGN KEY ranks(id)
     REFERENCES users(id);
+
+
+INSERT INTO `users` (`id`, `surname`, `username`, `secondname`, `curRank`, `root`, `password`, `salt`, `joinDate`, `dateBirth`, `club`, `avatars`, `rank`) VALUES (NULL, 'George', 'Ershov', 'Dmitrievich', '1', '2', '123', 'salt',  '1970-01-01', '2001-05-05', 'cyberpunk', 'none', 'Мастер');
+

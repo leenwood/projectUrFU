@@ -1,9 +1,16 @@
+<?php
+$rankName = [
+        0 => "Название ранга под цифрой 0",
+        1 => "Название ранга под цифрой 1",
+]
+?>
+
+
 <html>
 <head>
     <title><?php echo $title ?></title>
     <link href="<?php echo $bs ?>" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
-    <link href="templates/css/light/tmpStyle.css" rel="stylesheet">
     <style>
         .container {
 
@@ -14,7 +21,7 @@
 <header class="header">
     <nav class="header__nav">
         <a href="" class="btn btn-outline-secondary">Георгий Перман</a>
-        <button type="button" class="btn btn-danger">Выйти</button>
+        <a href="/logout2" class="btn btn-danger">Выйти</a>
     </nav>
 </header>
 <div class="container">
@@ -27,14 +34,14 @@
     <div class="container">
         <div class="menu row justify-content-between">
             <div class="menu__left col-6 flex-column">
-                <h1 class="menu__left-name">Перман Георгий Дмитриевич</h1>
+                <h1 class="menu__left-name"><?php echo $fio[0] ?> <?php echo $fio[1] ?> <?php echo $fio[2] ?></h1>
                 <div class="row">
                     <div class="menu__left-birthday col-6">Дата Рождения: <span>05.05.2001</span></div>
-                    <div class="menu__left-rang col-6">Звание: <span>Мастер</span></div>
+                    <div class="menu__left-rang col-6">Звание: <span><?php echo $rankName[$rank['curRank']] ?></span></div>
                 </div>
             </div>
-            <div class="menu__right col-2 offset-md-4"><span class="menu__right-info mb-2 shadow bg-body">id: 000001
-                    </span><span class="menu__right-info shadow bg-body">СТЕПЕНЬ</span></div>
+            <div class="menu__right col-2 offset-md-4"><span class="menu__right-info mb-2 shadow bg-body">id: <?php echo $_COOKIE['pAccount'] ?>
+                    </span><span class="menu__right-info shadow bg-body"><?php echo $rankName[$rank['curRank']] ?></span></div>
         </div>
         <div class="menu-content row">
             <div class="menu-content__pay col-2">

@@ -40,15 +40,31 @@ class IndexController extends BaseController
      */
     public function indexAction(Request $request)
     {
+        $fio = $this->articleRepository->getFio();
+        $rankid = $this->articleRepository->getRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
+                'rank' => $rankid,
+                'fio' => $fio,
             ])
         );
     }
 
+    public function logoutAction(Request $request)
+    {
+        setcookie('pAccount', '-1', 1, '/');
+        setcookie('password', '0', 1, '/');
+        return new Response(
+            $this->render('auth/logout', [
+                'title' => "Выйти из личного кабинета",
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+            ])
+        );
+    }
 
     /***
      * Путь авторизации, для рендеринга страницы с формой авторизации

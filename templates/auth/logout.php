@@ -7,7 +7,7 @@
         body {
             display: flex;	align-items: center;	justify-content: center;
         }
-        
+
         .tmpClass {
             border: 1px solid #e8e8e8;
             padding: 17px;

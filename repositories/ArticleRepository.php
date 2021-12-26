@@ -10,12 +10,22 @@ class ArticleRepository
     }
 
     /**
-     * Return all Articles
+     * Возращает номер звания
      */
-    public function getAll()
+    public function getRank()
     {
-        $statement = $this->connection->query("SELECT * FROM articles");
-        return $statement->fetchAll();
+        $sql = sprintf("SELECT curRank FROM users WHERE id = %s", $_COOKIE['pAccount']);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    public function getFio()
+    {
+        $sql = sprintf("SELECT surname, username, secondname FROM users WHERE id = %s", $_COOKIE['pAccount']);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
     }
 
     /**
