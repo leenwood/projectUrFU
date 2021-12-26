@@ -33,86 +33,53 @@ class IndexController extends BaseController
         );
     }
 
+    /***
+     * Основная страница, на которйо и показывается вся информация.
+     * @param Request $request
+     * @return Response
+     */
     public function indexAction(Request $request)
     {
-        $articles = $this->articleRepository->getAll();
         return new Response(
             $this->render('main', [
-                'articles' => $articles,
+                'title' => "Имя Фамилия пользователя",
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
             ])
         );
     }
 
-    public function showAction(Request $request)
+
+    /***
+     * Путь авторизации, для рендеринга страницы с формой авторизации
+     * @param Request $request
+     * @return Response
+     */
+    public function loginAction(Request $request)
     {
-        $id = $request->getQueryParameter("id");
-
-        $article = is_numeric($id) ? $this->articleRepository->getById($id) : null;
-
-        if ($article === null) {
-            return new Response('Page not found', '404', 'Not found');
-        }
-
         return new Response(
-            $this->render('article', [
-                'article' => $article
+            $this->render('auth/login', [
+                'title' => 'Авторизация',
+                'formName' => 'Авторизация',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
             ])
         );
     }
 
-    /**
-     * Show form far article create.
+    /***
+     * Путь авторизации, для записи куки и перенаправлению на центральную страницу
      * @param Request $request
      * @return Response
      */
-    public function createFormAction(Request $request)
+    public function authAction(Request $request)
     {
-        return new Response (
-                $this->render('article/form', [])
-        );
+        $pAccount = sprintf("%s", $_POST['login']);
+        $password = sprintf("%s", $_POST['password']);
 
+        setcookie('pAccount', $pAccount);
+        setcookie('password', $password);
+
+        return new Response('/', '301', 'homePage');
     }
-
-    /**
-     * Add new article
-     * @param Request $request
-     * @return Response|void
-     */
-    public function createAction(Request $request)
-    {
-        if ($request->isPost() && !empty($request->getRequestParameter('article'))) {
-
-            $article = $request->getRequestParameter('article');
-            $articleValidator = new ArticleValidator();
-
-            $errors = $articleValidator->validate($article);
-
-            if (empty($errors)) {
-
-                $this->articleRepository->add($article['name'], $article['body']);
-
-                return new Response(
-                    '/', '301', 'Moved'
-                );
-
-            } else {
-
-                return new Response (
-                    $this->render('article/form', [
-                        'errors' => $errors
-                    ])
-                );
-
-            }
-
-        }
-
-    }
-
-
-
-
-
 }

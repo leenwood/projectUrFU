@@ -1,4 +1,7 @@
 <?php
+
+require_once 'config/userData.php';
+
 require_once 'core/Request.php';
 require_once 'core/Response.php';
 require_once 'core/Router.php';
@@ -26,7 +29,7 @@ $connection = new PDO( $dsn, $database['username'], $database['password'], [
 ]);
 
 $articleRepository = new ArticleRepository($connection);
-
+$user = new userData($connection);
 
 try {
     $route = $router->match($request->getPath());
@@ -36,6 +39,26 @@ try {
         'action' => 'notfound',
     ];
 }
+
+
+if($route['action'] == 'login' or $route['action'] == 'auth' or $route['action'] == 'registr')
+{
+    setcookie("root", "true");
+} else
+{
+    if($user->authBool($_COOKIE['pAccount'], $_COOKIE['password']))
+    {
+        setcookie("root", "False/True");
+    } else
+    {
+        setcookie("root", "False/False");
+        $route = [
+            'controller' => 'index',
+            'action' => 'login'
+        ];
+    }
+}
+
 
 $controllers = [
     'index' => new IndexController($articleRepository),

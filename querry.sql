@@ -1,0 +1,52 @@
+CREATE TABLE  IF NOT EXISTS users (
+    id INT (7) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    surname varchar (255) not null,
+    username varchar (255) not null,
+    secondname varchar (255) not null,
+    curRank int (6) not null,
+    root int (6) not null,
+    password varchar (255) not null,
+    salt varchar (255) not null,
+    joinDate date not null,
+    dateBirth date not null,
+    club varchar (255) not null,
+    avatars varchar (255) not null
+    ) ENGINE=InnoDB;
+
+CREATE TABLE  IF NOT EXISTS ranks (
+    rankId INT (27) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id int (7),
+    dateTake date not null,
+    urlImg varchar(255) not null,
+    nameRank int(6) not null
+    ) ENGINE=InnoDB;
+
+CREATE TABLE  IF NOT EXISTS payments (
+    payId INT (27) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id int (7),
+    yearPay date not null,
+    datePay date not null,
+    sumPay varchar(255) not null
+    ) ENGINE=InnoDB;
+
+CREATE TABLE  IF NOT EXISTS ranks (
+    semId INT (27) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id int (7),
+    dateSem date not null,
+    region int(6) not null,
+    examiner varchar(255) not null,
+    examDate date not null,
+    trainer varchar(255) not null
+    ) ENGINE=InnoDB;
+
+ALTER TABLE ranks add CONSTRAINT FK_ranks_users
+    FOREIGN KEY ranks(id)
+    REFERENCES users(id);
+
+ALTER TABLE payments add CONSTRAINT FK_payments_users
+    FOREIGN KEY payments(id)
+    REFERENCES users(id);
+
+ALTER TABLE ranks add CONSTRAINT FK_ranks_users
+    FOREIGN KEY ranks(id)
+    REFERENCES users(id);
