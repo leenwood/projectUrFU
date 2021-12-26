@@ -30,7 +30,7 @@ CREATE TABLE  IF NOT EXISTS payments (
     sumPay varchar(255) not null
     ) ENGINE=InnoDB;
 
-CREATE TABLE  IF NOT EXISTS ranks (
+CREATE TABLE  IF NOT EXISTS seminars (
     semId INT (27) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id int (7),
     dateSem date not null,
@@ -48,8 +48,8 @@ ALTER TABLE payments add CONSTRAINT FK_payments_users
     FOREIGN KEY payments(id)
     REFERENCES users(id);
 
-ALTER TABLE ranks add CONSTRAINT FK_ranks_users
-    FOREIGN KEY ranks(id)
+ALTER TABLE seminars add CONSTRAINT FK_seminars_users
+    FOREIGN KEY seminars(id)
     REFERENCES users(id);
 
 
