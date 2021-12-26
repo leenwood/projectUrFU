@@ -27,14 +27,11 @@ $rankName = [
         <a href="/logout2" class="btn btn-danger">Выйти</a>
     </nav>
 </header>
-<div class="container">
-    <?php if(isset($error)):?>
-        <div class="warning"><?php echo $error ?></div>
-    <?php endif; ?>
-
-</div>
 <section class="section">
     <div class="container">
+        <?php if(isset($error)):?>
+            <div class="warning"><?php echo $error ?></div>
+        <?php endif; ?>
         <div class="menu1 row justify-content-between">
             <div class="menu__left col-6 flex-column">
                 <h1 class="menu__left-name1"><?php echo $fio[0] ?> <?php echo $fio[1] ?> <?php echo $fio[2] ?></h1>
