@@ -31,6 +31,12 @@ abstract class BaseController
         );
     }
 
+    protected function makeRankArray($inputArray = [])
+    {
+        $ansArray = $inputArray;
+        return $ansArray;
+    }
+
 
     public function __call($name, $arguments)
     {

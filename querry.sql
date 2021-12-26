@@ -54,4 +54,5 @@ ALTER TABLE seminars add CONSTRAINT FK_seminars_users
 
 
 INSERT INTO `users` (`id`, `surname`, `username`, `secondname`, `curRank`, `root`, `password`, `salt`, `joinDate`, `dateBirth`, `club`, `avatars`, `rank`) VALUES (NULL, 'George', 'Ershov', 'Dmitrievich', '1', '2', '123', 'salt',  '1970-01-01', '2001-05-05', 'cyberpunk', 'none', 'Мастер');
-
+INSERT INTO `ranks` (`rankId`, `id`, `dateTake`, `urlImg`, `nameRank`) VALUES (NULL, '1', '2021-12-25', 'none', '1');
+INSERT INTO `payments` (`payId`, `id`, `yearPay`, `datePay`, `sumPay`) VALUES (NULL, '1', '2017-01-01', '2021-12-27', '1000');

@@ -6,19 +6,26 @@ class userData
      * Action name
      * @var string
      */
-    protected $countersID= [];
+
     protected $connection = null;
 
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->countersID = [
-            "GVS" => -1,
-            "HVS" => -1,
-            "ELE" => -1,
-        ];
+        $this->updateRank();
     }
 
+    protected function updateRank()
+    {
+        $id = $_COOKIE['pAccount'];
+        $sql = sprintf('SELECT nameRank FROM ranks WHERE id = %s ORDER BY rankId DESC LIMIT 1', $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $curRank = $statement->fetch();
+        $sql = sprintf('UPDATE users SET curRank = %s WHERE id = %s', $curRank['nameRank'], $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+    }
     /***
      * функция авторизации, проверки
      * @param $pAccount

@@ -20,4 +20,24 @@ $routes = [
         'controller' => 'index',
         'action' => 'logout'
     ],
+
+    '/adminPanel' => [
+        'controller' => 'index',
+        'action' => 'admin'
+    ],
+
+    '/admin/search' => [
+        'controller' => 'index',
+        'action' => 'adminUser'
+    ],
+
+    '/changeRank' => [
+        'controller' => 'index',
+        'action' => 'changeRank'
+    ],
+
+    '/changeClub' => [
+    'controller' => 'index',
+    'action' => 'changeClub'
+],
 ];
