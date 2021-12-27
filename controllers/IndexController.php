@@ -45,11 +45,11 @@ class IndexController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        $checkAdmin = $this->articleRepository->getAdminStatus();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
         $fio = $this->articleRepository->getFio();
         $rankid = $this->articleRepository->getcurRank();
         $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
         $getRank = $this->articleRepository->getAllRank();
         $userClub = $this->articleRepository->getUserClub($_COOKIE['pAccount']);
         $payments = $this->articleRepository->getPayments();
@@ -73,7 +73,7 @@ class IndexController extends BaseController
     public function adminAction(Request $request)
     {
         $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             return new Response(
@@ -88,7 +88,7 @@ class IndexController extends BaseController
         }
         $rankid = $this->articleRepository->getcurRank();
         $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
         $getRank = $this->articleRepository->getAllRank();
         return new Response(
             $this->render('main', [
@@ -109,7 +109,7 @@ class IndexController extends BaseController
     public function adminUserAction(Request $request)
     {
         $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
@@ -130,6 +130,8 @@ class IndexController extends BaseController
             $userRank = $this->articleRepository->getUserRank($userID);
             $userClub = $this->articleRepository->getUserClub($userID);
             $curRankUser = $this->articleRepository->getUserCurRank($userID);
+            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            $dobUser = $this->articleRepository->getDob($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -142,12 +144,14 @@ class IndexController extends BaseController
                     'userRank' => $userRank['rank'],
                     'clubUser' => $userClub['club'],
                     'curRankUser' => $curRankUser['curRank'],
+                    'userRoot' => $userRoot,
+                    'dobUser' => $dobUser['dateBirth'],
                 ])
             );
         }
         $rankid = $this->articleRepository->getcurRank();
         $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
         $getRank = $this->articleRepository->getAllRank();
         return new Response(
             $this->render('main', [
@@ -168,7 +172,7 @@ class IndexController extends BaseController
     public function changeRankAction(Request $request)
     {
         $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
@@ -178,6 +182,7 @@ class IndexController extends BaseController
             $userRank = $this->articleRepository->getUserRank($userID);
             $userClub = $this->articleRepository->getUserClub($userID);
             $curRankUser = $this->articleRepository->getUserCurRank($userID);
+            $userRoot = $this->articleRepository->getAdminStatus($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -190,13 +195,14 @@ class IndexController extends BaseController
                     'userRank' => $userRank['rank'],
                     'clubUser' => $userClub['club'],
                     'curRankUser' => $curRankUser['curRank'],
+                    'userRoot' => $userRoot,
                     'redi' => '1',
                 ])
             );
         }
         $rankid = $this->articleRepository->getcurRank();
         $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
         $getRank = $this->articleRepository->getAllRank();
         return new Response(
             $this->render('main', [
@@ -217,7 +223,7 @@ class IndexController extends BaseController
     public function changeClubAction(Request $request)
     {
         $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
@@ -227,6 +233,7 @@ class IndexController extends BaseController
             $userRank = $this->articleRepository->getUserRank($userID);
             $userClub = $this->articleRepository->getUserClub($userID);
             $curRankUser = $this->articleRepository->getUserCurRank($userID);
+            $userRoot = $this->articleRepository->getAdminStatus($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -239,13 +246,268 @@ class IndexController extends BaseController
                     'userRank' => $userRank['rank'],
                     'clubUser' => $userClub['club'],
                     'curRankUser' => $curRankUser['curRank'],
+                    'userRoot' => $userRoot,
                     'redi' => '1',
                 ])
             );
         }
         $rankid = $this->articleRepository->getcurRank();
         $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
+        $getRank = $this->articleRepository->getAllRank();
+        return new Response(
+            $this->render('main', [
+                'title' => "Имя Фамилия пользователя",
+                'error' => 'Недостаточно прав для просмотра данного раздела',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'rank' => $rankid,
+                'fio' => $fio,
+                'zvanie' => $rankname['rank'],
+                'dob' => $dob['dateBirth'],
+                'rankArray' => $getRank,
+                'adminRoot' => $checkAdmin['root'],
+            ])
+        );
+    }
+
+    public function addNewRankAction(Request $request)
+    {
+        $fio = $this->articleRepository->getFio();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        if($checkAdmin['root'] > 1)
+        {
+            $userID = $request->getQueryParameter("userID");
+            $dateTake = $request->getRequestParameter('dateTake');
+            $rankName = $request->getRequestParameter('rankName');
+            $this->articleRepository->addNewRank($userID, $dateTake, $rankName);
+            $userFIO  = $this->articleRepository->getUserFio($userID);
+            $userRank = $this->articleRepository->getUserRank($userID);
+            $userClub = $this->articleRepository->getUserClub($userID);
+            $curRankUser = $this->articleRepository->getUserCurRank($userID);
+            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            return new Response(
+                $this->render('admin/userProfile', [
+                    'title' => "Имя Фамилия пользователя",
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'fio' => $fio,
+                    'userid' => $userID,
+                    'adminRoot' => $checkAdmin['root'],
+                    'userFIO' => $userFIO,
+                    'userRank' => $userRank['rank'],
+                    'clubUser' => $userClub['club'],
+                    'curRankUser' => $curRankUser['curRank'],
+                    'userRoot' => $userRoot,
+                    'redi' => '1',
+                ])
+            );
+        }
+        $rankid = $this->articleRepository->getcurRank();
+        $rankname = $this->articleRepository->getRankName();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
+        $getRank = $this->articleRepository->getAllRank();
+        return new Response(
+            $this->render('main', [
+                'title' => "Имя Фамилия пользователя",
+                'error' => 'Недостаточно прав для просмотра данного раздела',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'rank' => $rankid,
+                'fio' => $fio,
+                'zvanie' => $rankname['rank'],
+                'dob' => $dob['dateBirth'],
+                'rankArray' => $getRank,
+                'adminRoot' => $checkAdmin['root'],
+            ])
+        );
+    }
+
+
+    public function changeUserPasswordAction(Request $request)
+    {
+        $fio = $this->articleRepository->getFio();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        if($checkAdmin['root'] > 1)
+        {
+            $userID = $request->getQueryParameter("userID");
+            $newPas = $request->getRequestParameter('newPassword');
+            $this->articleRepository->changePassword($userID, $newPas);
+            $userFIO  = $this->articleRepository->getUserFio($userID);
+            $userRank = $this->articleRepository->getUserRank($userID);
+            $userClub = $this->articleRepository->getUserClub($userID);
+            $curRankUser = $this->articleRepository->getUserCurRank($userID);
+            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            return new Response(
+                $this->render('admin/userProfile', [
+                    'title' => "Имя Фамилия пользователя",
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'fio' => $fio,
+                    'userid' => $userID,
+                    'adminRoot' => $checkAdmin['root'],
+                    'userFIO' => $userFIO,
+                    'userRank' => $userRank['rank'],
+                    'clubUser' => $userClub['club'],
+                    'curRankUser' => $curRankUser['curRank'],
+                    'userRoot' => $userRoot,
+                    'redi' => '1',
+                ])
+            );
+        }
+        $rankid = $this->articleRepository->getcurRank();
+        $rankname = $this->articleRepository->getRankName();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
+        $getRank = $this->articleRepository->getAllRank();
+        return new Response(
+            $this->render('main', [
+                'title' => "Имя Фамилия пользователя",
+                'error' => 'Недостаточно прав для просмотра данного раздела',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'rank' => $rankid,
+                'fio' => $fio,
+                'zvanie' => $rankname['rank'],
+                'dob' => $dob['dateBirth'],
+                'rankArray' => $getRank,
+                'adminRoot' => $checkAdmin['root'],
+            ])
+        );
+    }
+
+    public function usersListAction(Request $request)
+    {
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $allUsers = $this->articleRepository->getAllUsers();
+        return new Response(
+            $this->render('usersList', [
+                'title' => "Список пользователей",
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'allUsers' => $allUsers,
+                'adminStatus' => $checkAdmin['root'],
+            ])
+        );
+    }
+
+    public function createNewUserFormAction(Request $request)
+    {
+        $fio = $this->articleRepository->getFio();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        if($checkAdmin['root'] > 1)
+        {
+            return new Response(
+                $this->render('admin/form/createUser', [
+                    'title' => "Имя Фамилия пользователя",
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'fio' => $fio,
+                    'adminRoot' => $checkAdmin['root'],
+                    'formName' => 'Форма создания нового пользователя',
+                ])
+            );
+        }
+        $rankid = $this->articleRepository->getcurRank();
+        $rankname = $this->articleRepository->getRankName();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
+        $getRank = $this->articleRepository->getAllRank();
+        return new Response(
+            $this->render('main', [
+                'title' => "Имя Фамилия пользователя",
+                'error' => 'Недостаточно прав для просмотра данного раздела',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'rank' => $rankid,
+                'fio' => $fio,
+                'zvanie' => $rankname['rank'],
+                'dob' => $dob['dateBirth'],
+                'rankArray' => $getRank,
+                'adminRoot' => $checkAdmin['root'],
+            ])
+        );
+    }
+
+    public function createNewUserAction(Request $request)
+    {
+        $fio = $this->articleRepository->getFio();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        if($checkAdmin['root'] > 1)
+        {
+            $newUser = $request->getRequestParameter('formUser');
+            if($this->articleRepository->createUser($newUser))
+            {
+                $msg = 'Пользователь успешно создан';
+            }
+            else
+            {
+                $error = 'Не удалось создать пользователя';
+            }
+            return new Response(
+                $this->render('admin/main', [
+                    'title' => "Имя Фамилия пользователя",
+                    'msg' => $msg,
+                    'error' => $error,
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'fio' => $fio,
+                    'adminRoot' => $checkAdmin['root'],
+                ])
+            );
+        }
+        $rankid = $this->articleRepository->getcurRank();
+        $rankname = $this->articleRepository->getRankName();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
+        $getRank = $this->articleRepository->getAllRank();
+        return new Response(
+            $this->render('main', [
+                'title' => "Имя Фамилия пользователя",
+                'error' => 'Недостаточно прав для просмотра данного раздела',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'rank' => $rankid,
+                'fio' => $fio,
+                'zvanie' => $rankname['rank'],
+                'dob' => $dob['dateBirth'],
+                'rankArray' => $getRank,
+                'adminRoot' => $checkAdmin['root'],
+            ])
+        );
+    }
+
+    public function changeRootUserAction(Request $request)
+    {
+        $fio = $this->articleRepository->getFio();
+        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        if($checkAdmin['root'] > 1)
+        {
+            $userID = $request->getQueryParameter("userID");
+            $newPas = $request->getRequestParameter('newRoot');
+            $this->articleRepository->changeRoot($userID, $newPas);
+            $userFIO  = $this->articleRepository->getUserFio($userID);
+            $userRank = $this->articleRepository->getUserRank($userID);
+            $userClub = $this->articleRepository->getUserClub($userID);
+            $curRankUser = $this->articleRepository->getUserCurRank($userID);
+            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            return new Response(
+                $this->render('admin/userProfile', [
+                    'title' => "Имя Фамилия пользователя",
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'fio' => $fio,
+                    'userid' => $userID,
+                    'adminRoot' => $checkAdmin['root'],
+                    'userFIO' => $userFIO,
+                    'userRank' => $userRank['rank'],
+                    'clubUser' => $userClub['club'],
+                    'curRankUser' => $curRankUser['curRank'],
+                    'userRoot' => $userRoot,
+                    'redi' => '1',
+                ])
+            );
+        }
+        $rankid = $this->articleRepository->getcurRank();
+        $rankname = $this->articleRepository->getRankName();
+        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
         $getRank = $this->articleRepository->getAllRank();
         return new Response(
             $this->render('main', [
@@ -270,6 +532,7 @@ class IndexController extends BaseController
         return new Response(
             $this->render('auth/logout', [
                 'title' => "Выйти из личного кабинета",
+                'formName' => 'Авторизация',
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
             ])

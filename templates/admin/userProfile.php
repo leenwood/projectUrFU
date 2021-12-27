@@ -28,7 +28,7 @@
 </head>
 <body>
 
-<div style="text-align: center;">Администратор:</div>
+<a href="/adminPanel"><div style="text-align: center;">Администратор:</div></a>
 <br>
 <div class="center" style="width: 100%">
     <div class="card" style='width: 600px; height: 105px; margin: 0 auto;'>
@@ -43,6 +43,8 @@
     </div>
 </div>
 <hr style="width: 90%; margin: 10px auto;">
+
+<div class="center" style="margin: 0 auto; width: 90%; text-align: center; font-size: 18pt; background-color: #d6d6d6">Информация о пользователи №<?php echo $userid ?></div>
 
 <table style="width: 70%; margin: 15px auto;">
     <thead>
@@ -83,32 +85,164 @@
         <td>
             Текущий пояс
         </td>
+        <td>
+            Дата рождения
+        </td>
+        <td>
+            Права пользователя
+        </td>
     </tr>
     </thead>
     <tr>
         <td><?php echo $clubUser ?></td>
         <td><?php echo $curRankUser ?></td>
+        <td><?php echo $dobUser ?></td>
+        <td><?php echo $userRoot['root'] ?></td>
+    </tr>
+</table>
+
+<table style="width: 70%; margin: 15px auto; border: 1px solid #e5e5e5; border-radius: 80px;">
+    <tr>
+        <td>
+            <form action="/changeRank?userID=<?php echo $userid ?>" method="post">
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="text" class="form-control" placeholder="Введите новое звание" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="newRank">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="/changeClub?userID=<?php echo $userid ?>" method="post">
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="text" class="form-control" placeholder="Введите название клуба" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="newClub">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form action="/changeUserPassword?userID=<?php echo $userid ?>" method="post">
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="text" class="form-control" placeholder="Введите новый пароль" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="newPassword">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="/changeUserDOB?userID=<?php echo $userid ?>" method="post">
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="text" class="form-control" placeholder="Введите новую дату рождения *" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="newDOB">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form action="/addNewRankId?userID=<?php echo $userid ?>" method="post" style="border: 1px solid #e5e5e5; border-radius: 7px;">
+                <label for="" style="margin-top: 10px;">Добавить новую запись о звании</label>
+                <hr>
+                <label for="dateTake">Дата получения</label>
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 0 auto;">
+                    <input type="date" class="form-control" placeholder="Формат: 2017-12-31" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="dateTake">
+                </div>
+                <label for="dateTake">Номер ранга</label>
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 0px auto;">
+                    <input type="number" class="form-control" placeholder="Формат: 7" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="rankName">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="/addNewPay?userID=<?php echo $userid ?>" method="post" style="border: 1px solid #e5e5e5; border-radius: 7px;">
+                <label for="" style="margin-top: 10px;">Добавить новую запись о платеже</label>
+                <hr>
+                <label for="dateTake">Дата платежа</label>
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 0 auto;">
+                    <input type="date" class="form-control" placeholder="Формат: 2017-12-31 *" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="datePay">
+                </div>
+                <label for="dateTake">За какой год платеж</label>
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 0px auto;">
+                    <input type="date" class="form-control" placeholder="Формат: Формат: 2017-01-01 *" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="yearPay">
+                </div>
+                <label for="dateTake">Сумма платежа</label>
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 0px auto;">
+                    <input type="number" class="form-control" placeholder="Формат: 1000 *" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="sumPay">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form action="/changeRootUser?userID=<?php echo $userid ?>" method="post">
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="number" class="form-control" placeholder="Введите новое значение доступа" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="newRoot">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="#" method="post">
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="text" class="form-control" placeholder="Введите имя *" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="newName">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">
+                Перейти к списку званий пользователя
+            </a>
+        </td>
+        <td>
+            <form action="#" method="post">
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="text" class="form-control" placeholder="Введите фамилию *" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="newSurname">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">
+                Перейти к списку семенаров посещенных пользователем
+            </a>
+        </td>
+        <td>
+            <form action="#" method="post">
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="text" class="form-control" placeholder="Введите отчество *" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="newSecondname">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
+                </div>
+            </form>
+        </td>
     </tr>
 </table>
 
 
-    <form action="/changeRank?userID=<?php echo $userid ?>" method="post">
-        <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
-        <input type="text" class="form-control" placeholder="Введите новое звание" aria-label="Белый пояс"
-               aria-describedby="button-addon2" name="newRank">
-        <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
-            <hr style="width: 600px; left: 400px;">
-        </div>
-    </form>
 
-    <form action="/changeClub?userID=<?php echo $userid ?>" method="post">
-    <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
-        <input type="text" class="form-control" placeholder="Введите название клуба" aria-label="Белый пояс"
-               aria-describedby="button-addon2" name="newClub">
-        <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поменять</button>
-        <hr style="width: 600px; left: 400px;">
-    </div>
-    </form>
+
+
+
+
 
 
 

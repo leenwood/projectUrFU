@@ -1,12 +1,19 @@
 <?php
 $rankName = [
-        1 => "3 КЮ",
-        2 => "4 КЮ",
+    0 => 'Пояс джедая',
+    1 => "3 КЮ",
+    2 => "4 КЮ",
+    3 => "5 КЮ",
+    4 => "6 КЮ",
+    5 => "7 КЮ",
 ];
 
 $rankColor = [
     1 => '#15580b',
-    2 => '#08186A'
+    2 => '#08186A',
+    3 => '#ffa500',
+    4 => '#ffc0cb',
+    5 => '#00a1b3',
 ];
 ?>
 
@@ -31,7 +38,7 @@ $rankColor = [
         <?php if($adminRoot > 1):?>
             <a href="/adminPanel" class="btn btn-primary">Панель Администратора</a>
         <?php endif; ?>
-        <a href="" class="btn btn-outline-secondary">Георгий Перман</a>
+        <a href="" class="btn btn-outline-secondary"><?php echo $fio[0] ?> <?php echo $fio[1] ?></a>
         <a href="/logout2" class="btn btn-danger">Выйти</a>
     </nav>
 </header>
@@ -56,18 +63,18 @@ $rankColor = [
             <div class="menu-content__pay col-2">
                 <div class="menu-content__list1 shadow">
                     <div class="menu-content__list-name1">годовые взносы</div>
-                    <?php if(isset($payments)): ?>
+                    <?php if(!empty($payments)): ?>
                     <ul class="menu-content__list__payments1">
                         <?php foreach ($payments as $key => $item): ?>
                             <li class="menu-content__list__payment1"><?php echo substr($item['yearPay'], 0, 4) ?> :  <?php echo $item['sumPay'] ?></li>
                         <?php endforeach; ?>
                     </ul>
                     <?php else: ?>
-                    <ul class="menu-content__list__payments1">
-                        <li>
-                            Информация отсутствует.
-                        </li>
-                    </ul>
+                            <ul class="menu-content__list__payments1">
+                                <li class="menu-content__list__payment1">
+                                    Информация отсутствует
+                                </li>
+                            </ul>
                     <?php endif; ?>
                 </div>
             </div>
@@ -75,12 +82,16 @@ $rankColor = [
                 <div class="menu-content__achievement-items1 row">
 
                         <?php if(isset($rankArray)): ?>
-                            <?php foreach ($rankArray as $key => $item): ?>
-                                <?php ($item); ?>
+                            <?php $prevRank = null;
+                            $tmpArray = array_reverse($rankArray); ?>
+                            <?php foreach ($tmpArray as $key => $item): ?>
+
                                 <div class="menu-content__achievement-item shadow col-5 row offset-md-1 mb-4">
                                     <div class="menu-content__achievement-item-left1 col-3 text-white p-2" style="background-color: <?php echo $rankColor[$item['nameRank']] ?>;"><?php echo $rankName[$item['nameRank']] ?></div>
-                                    <div class="menu-content__achievement-item-right1 col-9 text-wrap"><span>Номер записи ранга: <?php echo $item['rankId'] ?><br><?php echo $item['dateTake'] ?></span></div>
+                                    <div class="menu-content__achievement-item-right1 col-9 text-wrap"><span>Дата получения: <br>
+                                            <?php echo $item['dateTake'] ?></span><br></div>
                                 </div>
+                                <?php $prevRank = $rankName[$item['nameRank']] ?>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <p>

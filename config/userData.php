@@ -12,19 +12,37 @@ class userData
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->updateRank();
+        if($this->authBool($_COOKIE['pAccount'], $_COOKIE['password']))
+        {
+            $this->updateRank();
+        }
     }
 
     protected function updateRank()
     {
         $id = $_COOKIE['pAccount'];
-        $sql = sprintf('SELECT nameRank FROM ranks WHERE id = %s ORDER BY rankId DESC LIMIT 1', $id);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
+
+        try {
+            $sql = sprintf('SELECT nameRank FROM ranks WHERE id = %s ORDER BY rankId DESC LIMIT 1', $id);
+            $statement = $this->connection->prepare($sql);
+            $statement->execute();
+        }
+        catch (Exception $e)
+        {
+            $sql = sprintf("SELECT joinDate FROM users where id = %s", $id);
+            $statement = $this->connection->prepare($sql);
+            $date = $statement->execute();
+            $sql = sprintf("INSERT INTO `ranks` (`rankId`, `id`, `dateTake`, `urlImg`, `nameRank`) VALUES (NULL, '%s', '%s', 'none', '0')", $id, $date['joinDate']);
+            $statement = $this->connection->prepare($sql);
+            $statement->execute();
+        }
         $curRank = $statement->fetch();
-        $sql = sprintf('UPDATE users SET curRank = %s WHERE id = %s', $curRank['nameRank'], $id);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
+        if(!empty($curRank))
+        {
+            $sql = sprintf('UPDATE users SET curRank = %s WHERE id = %s', $curRank['nameRank'], $id);
+            $statement = $this->connection->prepare($sql);
+            $statement->execute();
+        }
     }
     /***
      * функция авторизации, проверки

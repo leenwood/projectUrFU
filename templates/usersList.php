@@ -1,0 +1,89 @@
+<?php
+$rankName = [
+    0 => 'Пояс джедая',
+    1 => "3 КЮ",
+    2 => "4 КЮ",
+    3 => "5 КЮ",
+    4 => "6 КЮ",
+    5 => "7 КЮ",
+];
+
+$rankColor = [
+    1 => '#15580b',
+    2 => '#08186A',
+    3 => '#ffa500',
+    4 => '#ffc0cb',
+    5 => '#00a1b3',
+];
+?>
+
+
+
+
+    <html>
+<head>
+    <title><?php echo $title ?></title>
+    <link href="<?php echo $bs ?>" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="../templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="templates/css/light/tmpStyle.css">
+    <style>
+        .container {
+
+        }
+        td {
+            padding: 5px;
+            width: 14%;
+        }
+        thead {
+            background-color: #e9e9e9;
+        }
+    </style>
+</head>
+    <body>
+<table style="width: 90%; margin: 0 auto">
+    <thead>
+    <tr>
+        <td>
+            Номер пользователя
+        </td>
+        <td>
+            Имя
+        </td>
+        <td>
+            Фамилия
+        </td>
+        <td>
+            Дата рождения
+        </td>
+        <td>
+            Пояс
+        </td>
+        <td>
+            Звания
+        </td>
+        <td>
+            Клуб
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($allUsers as $key => $value): ?>
+        <tr>
+            <?php if($adminStatus > 1):?>
+                <td><a style="text-decoration: none;" href="/admin/search?userID=<?php echo $value['id']?>"><?php echo $value['id']?></a></td>
+            <?php else: ?>
+                <td><?php echo $value['id']?></td>
+            <?php endif; ?>
+            <td><?php echo $value['username']?></td>
+            <td><?php echo $value['surname']?></td>
+            <td><?php echo $value['secondname']?></td>
+            <td><?php echo $rankName[$value['curRank']] ?></td>
+            <td><?php echo $value['rank']?></td>
+            <td><?php echo $value['club']?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+    </body>
+    </html>
+<?php

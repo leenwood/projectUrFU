@@ -39,5 +39,40 @@ $routes = [
     '/changeClub' => [
     'controller' => 'index',
     'action' => 'changeClub'
-],
+    ],
+    '/changeUserPassword' =>
+    [
+        'controller' => 'index',
+        'action' => 'changeUserPassword'
+    ],
+
+    '/addNewRankId' =>
+    [
+        'controller' => 'index',
+        'action' => 'addNewRank'
+    ],
+
+    '/usersList' =>
+    [
+        'controller' => 'index',
+        'action' => 'usersList'
+    ],
+
+    '/createNewUserForm' =>
+    [
+        'controller' => 'index',
+        'action' => 'createNewUserForm'
+    ],
+
+    '/createUser' =>
+    [
+        'controller' => 'index',
+        'action' => 'createNewUser'
+    ],
+
+    '/changeRootUser' =>
+    [
+        'controller' => 'index',
+        'action' => 'changeRootUser'
+    ],
 ];

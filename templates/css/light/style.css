@@ -4,11 +4,20 @@ body {
 }
 
 .warning {
+    background-color: #ECD5D8;
+    color: #BC2A4D;
     text-align: center;
     margin: 0 auto;
     padding: 5px;
-    background-color: #ECD5D8;
-    color: #BC2A4D;
+    max-width: 500px;
+}
+
+.alert {
+    background-color: #cbffc8;
+    color: #00460b;
+    text-align: center;
+    margin: 0 auto;
+    padding: 5px;
     max-width: 500px;
 }
 
