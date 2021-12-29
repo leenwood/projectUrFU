@@ -1,6 +1,6 @@
 <?php
 
-class ArticleRepository
+class UserProfile
 {
     protected $connection = null;
 

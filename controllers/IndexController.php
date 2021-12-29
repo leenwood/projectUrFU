@@ -13,13 +13,13 @@ class IndexController extends BaseController
     public $name = 'index';
 
     /**
-     * @var ArticleRepository
+     * @var UserProfile
      */
-    protected $articleRepository;
+    protected $UP;
 
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(UserProfile $UserProfile)
     {
-        $this->articleRepository = $articleRepository;
+        $this->UP = $UserProfile;
     }
 
     protected function makeRankArray($inArray = [])
@@ -45,14 +45,14 @@ class IndexController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
-        $fio = $this->articleRepository->getFio();
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
-        $userClub = $this->articleRepository->getUserClub($_COOKIE['pAccount']);
-        $payments = $this->articleRepository->getPayments();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
+        $userClub = $this->UP->getUserClub($_COOKIE['pAccount']);
+        $payments = $this->UP->getPayments();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -72,8 +72,8 @@ class IndexController extends BaseController
 
     public function adminAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             return new Response(
@@ -86,10 +86,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -108,12 +108,12 @@ class IndexController extends BaseController
 
     public function adminUserAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
-            if(!$this->articleRepository->checkId($userID))
+            if(!$this->UP->checkId($userID))
             {
                 return new Response(
                     $this->render('admin/main', [
@@ -126,12 +126,12 @@ class IndexController extends BaseController
                     ])
                 );
             }
-            $userFIO  = $this->articleRepository->getUserFio($userID);
-            $userRank = $this->articleRepository->getUserRank($userID);
-            $userClub = $this->articleRepository->getUserClub($userID);
-            $curRankUser = $this->articleRepository->getUserCurRank($userID);
-            $userRoot = $this->articleRepository->getAdminStatus($userID);
-            $dobUser = $this->articleRepository->getDob($userID);
+            $userFIO  = $this->UP->getUserFio($userID);
+            $userRank = $this->UP->getUserRank($userID);
+            $userClub = $this->UP->getUserClub($userID);
+            $curRankUser = $this->UP->getUserCurRank($userID);
+            $userRoot = $this->UP->getAdminStatus($userID);
+            $dobUser = $this->UP->getDob($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -149,10 +149,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -171,18 +171,18 @@ class IndexController extends BaseController
 
     public function changeRankAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
             $newRank = $request->getRequestParameter('newRank');
-            $this->articleRepository->changeRank($userID, $newRank);
-            $userFIO  = $this->articleRepository->getUserFio($userID);
-            $userRank = $this->articleRepository->getUserRank($userID);
-            $userClub = $this->articleRepository->getUserClub($userID);
-            $curRankUser = $this->articleRepository->getUserCurRank($userID);
-            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            $this->UP->changeRank($userID, $newRank);
+            $userFIO  = $this->UP->getUserFio($userID);
+            $userRank = $this->UP->getUserRank($userID);
+            $userClub = $this->UP->getUserClub($userID);
+            $curRankUser = $this->UP->getUserCurRank($userID);
+            $userRoot = $this->UP->getAdminStatus($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -200,10 +200,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -222,18 +222,18 @@ class IndexController extends BaseController
 
     public function changeClubAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
             $newRank = $request->getRequestParameter('newClub');
-            $this->articleRepository->changeClub($userID, $newRank);
-            $userFIO  = $this->articleRepository->getUserFio($userID);
-            $userRank = $this->articleRepository->getUserRank($userID);
-            $userClub = $this->articleRepository->getUserClub($userID);
-            $curRankUser = $this->articleRepository->getUserCurRank($userID);
-            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            $this->UP->changeClub($userID, $newRank);
+            $userFIO  = $this->UP->getUserFio($userID);
+            $userRank = $this->UP->getUserRank($userID);
+            $userClub = $this->UP->getUserClub($userID);
+            $curRankUser = $this->UP->getUserCurRank($userID);
+            $userRoot = $this->UP->getAdminStatus($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -251,10 +251,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -273,19 +273,19 @@ class IndexController extends BaseController
 
     public function addNewRankAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
             $dateTake = $request->getRequestParameter('dateTake');
             $rankName = $request->getRequestParameter('rankName');
-            $this->articleRepository->addNewRank($userID, $dateTake, $rankName);
-            $userFIO  = $this->articleRepository->getUserFio($userID);
-            $userRank = $this->articleRepository->getUserRank($userID);
-            $userClub = $this->articleRepository->getUserClub($userID);
-            $curRankUser = $this->articleRepository->getUserCurRank($userID);
-            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            $this->UP->addNewRank($userID, $dateTake, $rankName);
+            $userFIO  = $this->UP->getUserFio($userID);
+            $userRank = $this->UP->getUserRank($userID);
+            $userClub = $this->UP->getUserClub($userID);
+            $curRankUser = $this->UP->getUserCurRank($userID);
+            $userRoot = $this->UP->getAdminStatus($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -303,10 +303,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -326,18 +326,18 @@ class IndexController extends BaseController
 
     public function changeUserPasswordAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
             $newPas = $request->getRequestParameter('newPassword');
-            $this->articleRepository->changePassword($userID, $newPas);
-            $userFIO  = $this->articleRepository->getUserFio($userID);
-            $userRank = $this->articleRepository->getUserRank($userID);
-            $userClub = $this->articleRepository->getUserClub($userID);
-            $curRankUser = $this->articleRepository->getUserCurRank($userID);
-            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            $this->UP->changePassword($userID, $newPas);
+            $userFIO  = $this->UP->getUserFio($userID);
+            $userRank = $this->UP->getUserRank($userID);
+            $userClub = $this->UP->getUserClub($userID);
+            $curRankUser = $this->UP->getUserCurRank($userID);
+            $userRoot = $this->UP->getAdminStatus($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -355,10 +355,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -377,8 +377,8 @@ class IndexController extends BaseController
 
     public function usersListAction(Request $request)
     {
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
-        $allUsers = $this->articleRepository->getAllUsers();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
+        $allUsers = $this->UP->getAllUsers();
         return new Response(
             $this->render('usersList', [
                 'title' => "Список пользователей",
@@ -392,8 +392,8 @@ class IndexController extends BaseController
 
     public function createNewUserFormAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             return new Response(
@@ -407,10 +407,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -429,12 +429,12 @@ class IndexController extends BaseController
 
     public function createNewUserAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $newUser = $request->getRequestParameter('formUser');
-            if($this->articleRepository->createUser($newUser))
+            if($this->UP->createUser($newUser))
             {
                 $msg = 'Пользователь успешно создан';
             }
@@ -454,10 +454,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
@@ -476,18 +476,18 @@ class IndexController extends BaseController
 
     public function changeRootUserAction(Request $request)
     {
-        $fio = $this->articleRepository->getFio();
-        $checkAdmin = $this->articleRepository->getAdminStatus($_COOKIE['pAccount']);
+        $fio = $this->UP->getFio();
+        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         if($checkAdmin['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
             $newPas = $request->getRequestParameter('newRoot');
-            $this->articleRepository->changeRoot($userID, $newPas);
-            $userFIO  = $this->articleRepository->getUserFio($userID);
-            $userRank = $this->articleRepository->getUserRank($userID);
-            $userClub = $this->articleRepository->getUserClub($userID);
-            $curRankUser = $this->articleRepository->getUserCurRank($userID);
-            $userRoot = $this->articleRepository->getAdminStatus($userID);
+            $this->UP->changeRoot($userID, $newPas);
+            $userFIO  = $this->UP->getUserFio($userID);
+            $userRank = $this->UP->getUserRank($userID);
+            $userClub = $this->UP->getUserClub($userID);
+            $curRankUser = $this->UP->getUserCurRank($userID);
+            $userRoot = $this->UP->getAdminStatus($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
@@ -505,10 +505,10 @@ class IndexController extends BaseController
                 ])
             );
         }
-        $rankid = $this->articleRepository->getcurRank();
-        $rankname = $this->articleRepository->getRankName();
-        $dob = $this->articleRepository->getDob($_COOKIE['pAccount']);
-        $getRank = $this->articleRepository->getAllRank();
+        $rankid = $this->UP->getcurRank();
+        $rankname = $this->UP->getRankName();
+        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $getRank = $this->UP->getAllRank();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",

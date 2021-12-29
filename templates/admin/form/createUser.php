@@ -23,16 +23,21 @@
         <input type="text" name="formUser[surname]" class=" form-control" placeholder="Фамилия"><br>
         <input type="text" name="formUser[secondname]" class=" form-control" placeholder="Отчество / none"><br>
         <input type="text" name="formUser[curRank]" class=" form-control" placeholder="Пояс, 0 по умолчанию" value="0"><br>
-        <input type="number" name="formUser[root]" class=" form-control" placeholder="Права доступа. 1 - пользователь" value="1"><br>
-        <input type="text" name="formUser[password]" class=" form-control" placeholder="Пароль"><br><br>
+        <select name="formUser[root]" class="form-select">
+            <option selected value="0">User</option>
+            <option value="1">Trainer</option>
+            <option value="2">Administrator</option>
+        </select>
+        <br>
+        <input type="text" name="formUser[password]" class=" form-control" placeholder="Пароль"><br>
         <label for="">Дата вступления</label>
-        <input type="date" name="formUser[joinDate]" class=" form-control" placeholder="Дата вступления"><br><br>
+        <input type="date" name="formUser[joinDate]" class=" form-control" placeholder="Дата вступления"><br>
         <label for="">День рождения</label>
         <input type="date" name="formUser[dateBirth]" class=" form-control" placeholder="День рождения"><br>
         <input type="text" name="formUser[club]" class=" form-control" placeholder="Название клуба"><br>
-        <input type="text" name="formUser[avatar]" class=" form-control" placeholder="Ссылка на аватар" value="none"><br>
         <input type="text" name="formUser[rank]" class=" form-control" placeholder="Звание"><br>
-        <button class="btn btn-success" type="submit" style="float: right;">Sign in</button>
+        <button class="btn btn-success" type="submit" style="float: left;">Create</button>
+        <button class="btn btn-danger" type="submit" style="float: right;" formaction="/adminPanel">Create</button>
     </form>
 </div>
 </body>

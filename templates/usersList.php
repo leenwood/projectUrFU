@@ -40,7 +40,9 @@ $rankColor = [
     </style>
 </head>
     <body>
-<table style="width: 90%; margin: 0 auto">
+    <a href="/"><button type="button" class="btn btn-primary" style="margin: 15px; float: right">Home page</button></a>
+    <hr style="width: 90%; clear: both; margin: 20px auto;">
+<table style="width: 70%; clear: both; margin: 0 auto;">
     <thead>
     <tr>
         <td>

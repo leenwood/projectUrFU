@@ -10,7 +10,7 @@ require_once 'core/BaseController.php';
 require_once 'validator/ArticleValidator.php';
 
 
-require_once 'repositories/ArticleRepository.php';
+require_once 'repositories/UserProfile.php';
 
 require_once 'controllers/IndexController.php';
 
@@ -28,7 +28,7 @@ $connection = new PDO( $dsn, $database['username'], $database['password'], [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ]);
 
-$articleRepository = new ArticleRepository($connection);
+$articleRepository = new UserProfile($connection);
 $user = new userData($connection);
 
 try {
