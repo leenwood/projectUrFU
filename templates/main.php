@@ -1,28 +1,6 @@
-<?php
-$rankName = [
-    0 => 'Пояс джедая',
-    1 => "3 КЮ",
-    2 => "4 КЮ",
-    3 => "5 КЮ",
-    4 => "6 КЮ",
-    5 => "7 КЮ",
-];
-
-$rankColor = [
-    1 => '#15580b',
-    2 => '#08186A',
-    3 => '#ffa500',
-    4 => '#ffc0cb',
-    5 => '#00a1b3',
-];
-?>
-
-
-
-
 <html>
 <head>
-    <title><?php echo $zvanie ?> - <?php echo $fio[0] ?> <?php echo $fio[1] ?></title>
+    <title><?php echo $user['rank'] ?> - <?php echo $user['username'] ?> <?php echo $user['surname'] ?></title>
     <link href="<?php echo $bs ?>" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
     <link rel="stylesheet" href="templates/css/light/tmpStyle.css">
@@ -35,11 +13,12 @@ $rankColor = [
 <body>
 <header class="header">
     <nav class="header__nav">
-        <?php if($adminRoot > 1):?>
+        <?php if($user['root'] > 1):?>
             <a href="/adminPanel" class="btn btn-primary">Панель Администратора</a>
         <?php endif; ?>
-        <a href="" class="btn btn-outline-secondary"><?php echo $fio[0] ?> <?php echo $fio[1] ?></a>
+        <a href="" class="btn btn-outline-secondary"><?php echo $user['username'] ?> <?php echo $user['surname'] ?></a>
         <a href="/logout2" class="btn btn-danger">Выйти</a>
+
     </nav>
 </header>
 <section class="section">
@@ -49,15 +28,15 @@ $rankColor = [
         <?php endif; ?>
         <div class="menu1 row justify-content-between">
             <div class="menu__left col-6 flex-column">
-                <h1 class="menu__left-name1"><?php echo $fio[0] ?> <?php echo $fio[1] ?> <?php echo $fio[2] ?></h1>
+                <h1 class="menu__left-name1"><?php echo $user['surname'] ?> <?php echo $user['username'] ?> <?php echo $user['secondname'] ?></h1>
                 <div class="row">
-                    <div class="menu__left-birthday1 col-6">Дата Рождения: <br><span><?php echo $dob ?></span></div>
-                    <div class="menu__left-rang1 col-6">Звание: <br><span><?php echo $zvanie ?></span></div>
+                    <div class="menu__left-birthday1 col-6">Дата Рождения: <br><span><?php echo $user['dateBirth'] ?></span></div>
+                    <div class="menu__left-rang1 col-6">Звание: <br><span><?php echo $user['rank'] ?></span></div>
                 </div>
             </div>
-            <div class="menu__right col-2 offset-md-4"><span class="menu__right-info1 mb-2 shadow ">id: <?php echo $_COOKIE['pAccount'] ?></span>
-                <span class="menu__right-info1 shadow">СТЕПЕНЬ: <?php echo $rankName[$rank['curRank']] ?></span>
-                <span class="menu__right-info1 shadow">Клуб: <?php echo $club ?></span></div>
+            <div class="menu__right col-2 offset-md-4"><span class="menu__right-info1 mb-2 shadow ">id: <?php echo $user['id'] ?></span>
+                <span class="menu__right-info1 shadow">СТЕПЕНЬ: <?php echo $rankName[$user['curRank']] ?></span>
+                <span class="menu__right-info1 shadow">Клуб: <?php echo $user['club'] ?></span></div>
         </div>
         <div class="menu-content1 row">
             <div class="menu-content__pay col-2">

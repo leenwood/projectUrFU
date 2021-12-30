@@ -180,4 +180,12 @@ class UserProfile
         $statement = $this->connection->prepare($sqlTmp.$sql);
         return $statement->execute();
     }
+
+    public function getUser($id)
+    {
+        $sql = sprintf('SELECT * FROM users where id = %s', $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
+    }
 }

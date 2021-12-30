@@ -9,7 +9,8 @@ class IndexController extends BaseController
 
     protected $bootstrap = "https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css";
     protected $style = "light";
-
+    protected $rankName = [];
+    protected $rankColor = [];
     public $name = 'index';
 
     /**
@@ -20,6 +21,9 @@ class IndexController extends BaseController
     public function __construct(UserProfile $UserProfile)
     {
         $this->UP = $UserProfile;
+        include_once './lang/ru/rank.php';
+        $this->rankColor = $rankColor;
+        $this->rankName = $rankName;
     }
 
     protected function makeRankArray($inArray = [])
@@ -45,27 +49,19 @@ class IndexController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
-        $fio = $this->UP->getFio();
-        $rankid = $this->UP->getcurRank();
-        $rankname = $this->UP->getRankName();
-        $dob = $this->UP->getDob($_COOKIE['pAccount']);
+        $tmpUser = $this->UP->getUser($_COOKIE['pAccount']);
         $getRank = $this->UP->getAllRank();
-        $userClub = $this->UP->getUserClub($_COOKIE['pAccount']);
         $payments = $this->UP->getPayments();
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
+                'rankName' => $this->rankName,
+                'rankColor' => $this->rankColor,
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'rank' => $rankid,
-                'fio' => $fio,
-                'zvanie' => $rankname['rank'],
-                'dob' => $dob['dateBirth'],
                 'rankArray' => $getRank,
-                'adminRoot' => $checkAdmin['root'],
-                'club' => $userClub['club'],
                 'payments' => $payments,
+                'user' => $tmpUser,
             ])
         );
     }
