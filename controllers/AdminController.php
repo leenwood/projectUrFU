@@ -206,11 +206,6 @@ class AdminController extends BaseController
             $userID = $request->getQueryParameter("userID");
             $newPas = $request->getRequestParameter('newPassword');
             $this->UP->changePassword($userID, $newPas);
-            $userFIO  = $this->UP->getUserFio($userID);
-            $userRank = $this->UP->getUserRank($userID);
-            $userClub = $this->UP->getUserClub($userID);
-            $curRankUser = $this->UP->getUserCurRank($userID);
-            $userRoot = $this->UP->getAdminStatus($userID);
             $sUser = $this->UP->getUser($userID);
             return new Response(
                 $this->render('admin/userProfile', [
