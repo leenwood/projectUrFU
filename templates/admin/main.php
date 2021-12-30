@@ -7,7 +7,7 @@
     <?php echo $bs ?>
     <link href="../templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
 
-    <title>Панель Администратора</title>
+    <title><?php echo $title ?></title>
     <style>
         table
         {

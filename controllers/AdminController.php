@@ -44,10 +44,10 @@ class AdminController extends BaseController
         {
             return new Response(
                 $this->render('admin/main', [
-                    'title' => "Имя Фамилия пользователя",
+                    'title' => 'A: '.$user['surname'].' '.$user['username'],
                     'bs' => $this->bootstrap,
                     'style' => $this->style,
-                    'user' => $user
+                    'user' => $user,
                 ])
             );
         }
@@ -73,7 +73,7 @@ class AdminController extends BaseController
                 return new Response(
                     $this->render('admin/main', [
                         'error' => 'Пользователя нет в системе',
-                        'title' => "Имя Фамилия пользователя",
+                        'title' => 'A: '.$user['surname'].' '.$user['username'],
                         'bs' => $this->bootstrap,
                         'style' => $this->style,
                         'user' => $user,
@@ -83,11 +83,12 @@ class AdminController extends BaseController
             $sUser = $this->UP->getUser($userID);
             return new Response(
                 $this->render('admin/userProfile', [
-                    'title' => "Имя Фамилия пользователя",
+                    'title' => 'A: '.$user['surname'].' '.$user['username'],
                     'bs' => $this->bootstrap,
                     'style' => $this->style,
                     'user' => $user,
                     'sUser' => $sUser,
+                    'rankName' => $this->rankName,
                 ])
             );
         }
@@ -113,7 +114,7 @@ class AdminController extends BaseController
             $sUser = $this->UP->getUser($userID);
             return new Response(
                 $this->render('admin/userProfile', [
-                    'title' => "Имя Фамилия пользователя",
+                    'title' => 'A: '.$user['surname'].' '.$user['username'],
                     'bs' => $this->bootstrap,
                     'style' => $this->style,
                     'user' => $user,
@@ -144,7 +145,7 @@ class AdminController extends BaseController
             $sUser = $this->UP->getUser($userID);
             return new Response(
                 $this->render('admin/userProfile', [
-                    'title' => "Имя Фамилия пользователя",
+                    'title' => 'A: '.$user['surname'].' '.$user['username'],
                     'bs' => $this->bootstrap,
                     'style' => $this->style,
                     'user' => $user,
@@ -176,7 +177,7 @@ class AdminController extends BaseController
             $sUser = $this->UP->getUser($userID);
             return new Response(
                 $this->render('admin/userProfile', [
-                    'title' => "Имя Фамилия пользователя",
+                    'title' => 'A: '.$user['surname'].' '.$user['username'],
                     'bs' => $this->bootstrap,
                     'style' => $this->style,
                     'user' => $user,
@@ -199,9 +200,8 @@ class AdminController extends BaseController
 
     public function changeUserPasswordAction(Request $request)
     {
-        $fio = $this->UP->getFio();
-        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
-        if($checkAdmin['root'] > 1)
+        $user = $this->UP->getUser($_COOKIE['pAccount']);
+        if($user['root'] > 1)
         {
             $userID = $request->getQueryParameter("userID");
             $newPas = $request->getRequestParameter('newPassword');
@@ -211,39 +211,25 @@ class AdminController extends BaseController
             $userClub = $this->UP->getUserClub($userID);
             $curRankUser = $this->UP->getUserCurRank($userID);
             $userRoot = $this->UP->getAdminStatus($userID);
+            $sUser = $this->UP->getUser($userID);
             return new Response(
                 $this->render('admin/userProfile', [
                     'title' => "Имя Фамилия пользователя",
                     'bs' => $this->bootstrap,
                     'style' => $this->style,
-                    'fio' => $fio,
-                    'userid' => $userID,
-                    'adminRoot' => $checkAdmin['root'],
-                    'userFIO' => $userFIO,
-                    'userRank' => $userRank['rank'],
-                    'clubUser' => $userClub['club'],
-                    'curRankUser' => $curRankUser['curRank'],
-                    'userRoot' => $userRoot,
+                    'user' => $user,
+                    'sUser' => $sUser,
                     'redi' => '1',
                 ])
             );
         }
-        $rankid = $this->UP->getcurRank();
-        $rankname = $this->UP->getRankName();
-        $dob = $this->UP->getDob($_COOKIE['pAccount']);
-        $getRank = $this->UP->getAllRank();
         return new Response(
-            $this->render('main', [
-                'title' => "Имя Фамилия пользователя",
-                'error' => 'Недостаточно прав для просмотра данного раздела',
+            $this->render(
+                'template', [
+                'title' => 'TEMP PAGE',
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'rank' => $rankid,
-                'fio' => $fio,
-                'zvanie' => $rankname['rank'],
-                'dob' => $dob['dateBirth'],
-                'rankArray' => $getRank,
-                'adminRoot' => $checkAdmin['root'],
+                'error' => "You don't have permission"
             ])
         );
     }

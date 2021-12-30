@@ -9,7 +9,7 @@
     <?php echo $bs ?>
     <link href="../templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
 
-    <title>Панель Администратора</title>
+    <title><?php echo $title ?></title>
     <style>
         table
         {
@@ -94,7 +94,7 @@
     </thead>
     <tr>
         <td><?php echo $sUser['club'] ?></td>
-        <td><?php echo $sUser['curRank'] ?></td>
+        <td><?php echo $rankName[$sUser['curRank']] ?>(ID:<?php echo $sUser['curRank'] ?>)</td>
         <td><?php echo $sUser['dateBirth'] ?></td>
         <td><?php echo $sUser['root'] ?></td>
     </tr>
