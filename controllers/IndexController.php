@@ -21,9 +21,10 @@ class IndexController extends BaseController
     public function __construct(UserProfile $UserProfile)
     {
         $this->UP = $UserProfile;
-        include_once './lang/ru/rank.php';
-        $this->rankColor = $rankColor;
-        $this->rankName = $rankName;
+        require_once './lang/ru/rankConfig.php';
+        $tmpClass = new rankConfig();
+        $this->rankColor = $tmpClass->getRankColor();
+        $this->rankName = $tmpClass->getRankName();
     }
 
     protected function makeRankArray($inArray = [])
@@ -81,141 +82,6 @@ class IndexController extends BaseController
                 'style' => $this->style,
                 'allUsers' => $allUsers,
                 'adminStatus' => $checkAdmin['root'],
-            ])
-        );
-    }
-
-    public function createNewUserFormAction(Request $request)
-    {
-        $fio = $this->UP->getFio();
-        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
-        if($checkAdmin['root'] > 1)
-        {
-            return new Response(
-                $this->render('admin/form/createUser', [
-                    'title' => "Имя Фамилия пользователя",
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'fio' => $fio,
-                    'adminRoot' => $checkAdmin['root'],
-                    'formName' => 'Форма создания нового пользователя',
-                ])
-            );
-        }
-        $rankid = $this->UP->getcurRank();
-        $rankname = $this->UP->getRankName();
-        $dob = $this->UP->getDob($_COOKIE['pAccount']);
-        $getRank = $this->UP->getAllRank();
-        return new Response(
-            $this->render('main', [
-                'title' => "Имя Фамилия пользователя",
-                'error' => 'Недостаточно прав для просмотра данного раздела',
-                'bs' => $this->bootstrap,
-                'style' => $this->style,
-                'rank' => $rankid,
-                'fio' => $fio,
-                'zvanie' => $rankname['rank'],
-                'dob' => $dob['dateBirth'],
-                'rankArray' => $getRank,
-                'adminRoot' => $checkAdmin['root'],
-            ])
-        );
-    }
-
-    public function createNewUserAction(Request $request)
-    {
-        $fio = $this->UP->getFio();
-        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
-        if($checkAdmin['root'] > 1)
-        {
-            $newUser = $request->getRequestParameter('formUser');
-            if($this->UP->createUser($newUser))
-            {
-                $msg = 'Пользователь успешно создан';
-            }
-            else
-            {
-                $error = 'Не удалось создать пользователя';
-            }
-            return new Response(
-                $this->render('admin/main', [
-                    'title' => "Имя Фамилия пользователя",
-                    'msg' => $msg,
-                    'error' => $error,
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'fio' => $fio,
-                    'adminRoot' => $checkAdmin['root'],
-                ])
-            );
-        }
-        $rankid = $this->UP->getcurRank();
-        $rankname = $this->UP->getRankName();
-        $dob = $this->UP->getDob($_COOKIE['pAccount']);
-        $getRank = $this->UP->getAllRank();
-        return new Response(
-            $this->render('main', [
-                'title' => "Имя Фамилия пользователя",
-                'error' => 'Недостаточно прав для просмотра данного раздела',
-                'bs' => $this->bootstrap,
-                'style' => $this->style,
-                'rank' => $rankid,
-                'fio' => $fio,
-                'zvanie' => $rankname['rank'],
-                'dob' => $dob['dateBirth'],
-                'rankArray' => $getRank,
-                'adminRoot' => $checkAdmin['root'],
-            ])
-        );
-    }
-
-    public function changeRootUserAction(Request $request)
-    {
-        $fio = $this->UP->getFio();
-        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
-        if($checkAdmin['root'] > 1)
-        {
-            $userID = $request->getQueryParameter("userID");
-            $newPas = $request->getRequestParameter('newRoot');
-            $this->UP->changeRoot($userID, $newPas);
-            $userFIO  = $this->UP->getUserFio($userID);
-            $userRank = $this->UP->getUserRank($userID);
-            $userClub = $this->UP->getUserClub($userID);
-            $curRankUser = $this->UP->getUserCurRank($userID);
-            $userRoot = $this->UP->getAdminStatus($userID);
-            return new Response(
-                $this->render('admin/userProfile', [
-                    'title' => "Имя Фамилия пользователя",
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'fio' => $fio,
-                    'userid' => $userID,
-                    'adminRoot' => $checkAdmin['root'],
-                    'userFIO' => $userFIO,
-                    'userRank' => $userRank['rank'],
-                    'clubUser' => $userClub['club'],
-                    'curRankUser' => $curRankUser['curRank'],
-                    'userRoot' => $userRoot,
-                    'redi' => '1',
-                ])
-            );
-        }
-        $rankid = $this->UP->getcurRank();
-        $rankname = $this->UP->getRankName();
-        $dob = $this->UP->getDob($_COOKIE['pAccount']);
-        $getRank = $this->UP->getAllRank();
-        return new Response(
-            $this->render('main', [
-                'title' => "Имя Фамилия пользователя",
-                'error' => 'Недостаточно прав для просмотра данного раздела',
-                'bs' => $this->bootstrap,
-                'style' => $this->style,
-                'rank' => $rankid,
-                'fio' => $fio,
-                'zvanie' => $rankname['rank'],
-                'dob' => $dob['dateBirth'],
-                'rankArray' => $getRank,
-                'adminRoot' => $checkAdmin['root'],
             ])
         );
     }

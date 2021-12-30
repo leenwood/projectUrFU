@@ -72,7 +72,7 @@
         </td>
         <td>
             <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">
-                Создать новое звание *
+                CLEAR BUTTON
             </a>
         </td>
     </tr>

@@ -94,7 +94,7 @@
     </thead>
     <tr>
         <td><?php echo $sUser['club'] ?></td>
-        <td><?php echo $rankName[$sUser['curRank']] ?>(ID:<?php echo $sUser['curRank'] ?>)</td>
+        <td><?php echo $rankName[$sUser['curRank']] ?> (ID:<?php echo $sUser['curRank'] ?>)</td>
         <td><?php echo $sUser['dateBirth'] ?></td>
         <td><?php echo $sUser['root'] ?></td>
     </tr>

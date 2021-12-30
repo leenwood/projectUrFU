@@ -21,9 +21,10 @@ class AdminController extends BaseController
     public function __construct(UserProfile $UserProfile)
     {
         $this->UP = $UserProfile;
-        include_once './lang/ru/rank.php';
-        $this->rankColor = $rankColor;
-        $this->rankName = $rankName;
+        require_once './lang/ru/rankConfig.php';
+        $tmpClass = new rankConfig();
+        $this->rankColor = $tmpClass->getRankColor();
+        $this->rankName = $tmpClass->getRankName();
     }
 
     protected function makeRankArray($inArray = [])
@@ -206,6 +207,99 @@ class AdminController extends BaseController
             $userID = $request->getQueryParameter("userID");
             $newPas = $request->getRequestParameter('newPassword');
             $this->UP->changePassword($userID, $newPas);
+            $sUser = $this->UP->getUser($userID);
+            return new Response(
+                $this->render('admin/userProfile', [
+                    'title' => "Имя Фамилия пользователя",
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'user' => $user,
+                    'sUser' => $sUser,
+                    'redi' => '1',
+                ])
+            );
+        }
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'TEMP PAGE',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'error' => "You don't have permission"
+            ])
+        );
+    }
+
+    public function createNewUserFormAction(Request $request)
+    {
+        $user = $this->UP->getUser($_COOKIE['pAccount']);
+        if($user['root'] > 1)
+        {
+            return new Response(
+                $this->render('admin/form/createUser', [
+                    'title' => "Имя Фамилия пользователя",
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'user' => $user,
+                    'formName' => 'Форма создания нового пользователя',
+                ])
+            );
+        }
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'TEMP PAGE',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'error' => "You don't have permission"
+            ])
+        );
+    }
+
+    public function createNewUserAction(Request $request)
+    {
+        $user = $this->UP->getUser($_COOKIE['pAccount']);
+        if($user['root'] > 1)
+        {
+            $newUser = $request->getRequestParameter('formUser');
+            if($this->UP->createUser($newUser))
+            {
+                $msg = 'Пользователь успешно создан';
+            }
+            else
+            {
+                $error = 'Не удалось создать пользователя';
+            }
+            return new Response(
+                $this->render('admin/main', [
+                    'title' => "Имя Фамилия пользователя",
+                    'msg' => $msg,
+                    'error' => $error,
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'user' => $user,
+                ])
+            );
+        }
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'TEMP PAGE',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'error' => "You don't have permission"
+            ])
+        );
+    }
+
+    public function changeRootUserAction(Request $request)
+    {
+        $user = $this->UP->getUser($_COOKIE['pAccount']);
+        if($user['root'] > 1)
+        {
+            $userID = $request->getQueryParameter("userID");
+            $newPas = $request->getRequestParameter('newRoot');
+            $this->UP->changeRoot($userID, $newPas);
             $sUser = $this->UP->getUser($userID);
             return new Response(
                 $this->render('admin/userProfile', [

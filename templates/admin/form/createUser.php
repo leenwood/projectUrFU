@@ -37,7 +37,7 @@
         <input type="text" name="formUser[club]" class=" form-control" placeholder="Название клуба"><br>
         <input type="text" name="formUser[rank]" class=" form-control" placeholder="Звание"><br>
         <button class="btn btn-success" type="submit" style="float: left;">Create</button>
-        <button class="btn btn-danger" type="submit" style="float: right;" formaction="/adminPanel">Create</button>
+        <button class="btn btn-danger" type="submit" style="float: right;" formaction="/adminPanel">Cancel</button>
     </form>
 </div>
 </body>
