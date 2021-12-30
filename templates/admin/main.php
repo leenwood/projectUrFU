@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <?php echo $bs ?>
     <link href="../templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
 
     <title>Панель Администратора</title>
@@ -27,14 +26,14 @@
 <body>
 <div style="text-align: center; margin-top: 5px"><a href="/" class="btn btn-primary">Вернутся домой</a> <br>Администратор: </div>
 <br>
-<div class="center" style="width: 100%">
+<div class="center" style="width: 100%; margin-bottom: 10px;">
     <div class="card" style='width: 600px; height: 105px; margin: 0 auto;'>
         <div class="card-header" style="background-color: #dc3545">
-            ID: <?php echo $_COOKIE['pAccount']?>
+            ID: <?php echo $user['id'] ?>
         </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
-                <p><?php echo $fio[0] ?> <?php echo $fio[1] ?> <?php echo $fio[2] ?></p>
+                <p><?php echo $user['surname'] ?>  <?php echo $user['username'] ?> <?php echo $user['secondname'] ?> </p>
             </blockquote>
         </div>
     </div>

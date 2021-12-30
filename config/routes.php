@@ -22,33 +22,34 @@ $routes = [
     ],
 
     '/adminPanel' => [
-        'controller' => 'index',
+        'controller' => 'admin',
         'action' => 'admin'
     ],
 
     '/admin/search' => [
-        'controller' => 'index',
+        'controller' => 'admin',
         'action' => 'adminUser'
     ],
 
     '/changeRank' => [
-        'controller' => 'index',
+        'controller' => 'admin',
         'action' => 'changeRank'
     ],
 
     '/changeClub' => [
-    'controller' => 'index',
-    'action' => 'changeClub'
+        'controller' => 'admin',
+        'action' => 'changeClub'
     ],
+
     '/changeUserPassword' =>
     [
-        'controller' => 'index',
+        'controller' => 'admin',
         'action' => 'changeUserPassword'
     ],
 
     '/addNewRankId' =>
     [
-        'controller' => 'index',
+        'controller' => 'admin',
         'action' => 'addNewRank'
     ],
 
@@ -60,19 +61,19 @@ $routes = [
 
     '/createNewUserForm' =>
     [
-        'controller' => 'index',
+        'controller' => 'admin',
         'action' => 'createNewUserForm'
     ],
 
     '/createUser' =>
     [
-        'controller' => 'index',
+        'controller' => 'admin',
         'action' => 'createNewUser'
     ],
 
     '/changeRootUser' =>
     [
-        'controller' => 'index',
+        'controller' => 'admin',
         'action' => 'changeRootUser'
     ],
 ];

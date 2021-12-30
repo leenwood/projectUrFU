@@ -1,8 +1,10 @@
 <head>
-    <meta http-equiv="refresh" content="2;/">
+    <link rel="stylesheet" href="/templates/css/light/style.css">
+
 </head>
 <div class="container">
     <?php if(isset($error)):?>
         <div class="warning"><?php echo $error ?></div>
     <?php endif; ?>
+    <a href="/" class="btn">Return to Home</a>
 </div>

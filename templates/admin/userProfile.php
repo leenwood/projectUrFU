@@ -4,11 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php if(!empty($redi)):?>
-    <meta http-equiv="refresh" content="0;/admin/search?userID=<?php echo $userid ?>">
+    <meta http-equiv="refresh" content="0;/admin/search?userID=<?php echo $sUser['id'] ?>">
     <?php endif; ?>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
+    <?php echo $bs ?>
+    <link href="../templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
 
     <title>Панель Администратора</title>
     <style>
@@ -33,18 +32,18 @@
 <div class="center" style="width: 100%">
     <div class="card" style='width: 600px; height: 105px; margin: 0 auto;'>
         <div class="card-header" style="background-color: #dc3545">
-            ID: <?php echo $_COOKIE['pAccount']?>
+            ID: <?php echo $user['id'] ?>
         </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
-                <p><?php echo $fio[0] ?> <?php echo $fio[1] ?> <?php echo $fio[2] ?></p>
+                <p><?php echo $user['surname'] ?>  <?php echo $user['username'] ?> <?php echo $user['secondname'] ?> </p>
             </blockquote>
         </div>
     </div>
 </div>
 <hr style="width: 90%; margin: 10px auto;">
 
-<div class="center" style="margin: 0 auto; width: 90%; text-align: center; font-size: 18pt; background-color: #d6d6d6">Информация о пользователи №<?php echo $userid ?></div>
+<div class="center" style="margin: 0 auto; width: 90%; text-align: center; font-size: 18pt; background-color: #d6d6d6">Информация о пользователи №<?php echo $sUser['id'] ?></div>
 
 <table style="width: 70%; margin: 15px auto;">
     <thead>
@@ -65,16 +64,16 @@
     </thead>
     <tr>
         <td>
-            <?php echo $userFIO[0] ?>
+            <?php echo $sUser['surname'] ?>
         </td>
         <td>
-            <?php echo $userFIO[1] ?>
+            <?php echo $sUser['username'] ?>
         </td>
         <td>
-            <?php echo $userFIO[2] ?>
+            <?php echo $sUser['secondname'] ?>
         </td>
         <td>
-            <?php echo $userRank ?>
+            <?php echo $sUser['rank'] ?>
         </td>
     </tr>
     <thead>
@@ -94,17 +93,17 @@
     </tr>
     </thead>
     <tr>
-        <td><?php echo $clubUser ?></td>
-        <td><?php echo $curRankUser ?></td>
-        <td><?php echo $dobUser ?></td>
-        <td><?php echo $userRoot['root'] ?></td>
+        <td><?php echo $sUser['club'] ?></td>
+        <td><?php echo $sUser['curRank'] ?></td>
+        <td><?php echo $sUser['dateBirth'] ?></td>
+        <td><?php echo $sUser['root'] ?></td>
     </tr>
 </table>
 
 <table style="width: 70%; margin: 15px auto; border: 1px solid #e5e5e5; border-radius: 80px;">
     <tr>
         <td>
-            <form action="/changeRank?userID=<?php echo $userid ?>" method="post">
+            <form action="/changeRank?userID=<?php echo $sUser['id'] ?>" method="post">
                 <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
                     <input type="text" class="form-control" placeholder="Введите новое звание" aria-label="Белый пояс"
                            aria-describedby="button-addon2" name="newRank">
@@ -113,7 +112,7 @@
             </form>
         </td>
         <td>
-            <form action="/changeClub?userID=<?php echo $userid ?>" method="post">
+            <form action="/changeClub?userID=<?php echo $sUser['id'] ?>" method="post">
                 <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
                     <input type="text" class="form-control" placeholder="Введите название клуба" aria-label="Белый пояс"
                            aria-describedby="button-addon2" name="newClub">
@@ -124,7 +123,7 @@
     </tr>
     <tr>
         <td>
-            <form action="/changeUserPassword?userID=<?php echo $userid ?>" method="post">
+            <form action="/changeUserPassword?userID=<?php echo $sUser['id'] ?>" method="post">
                 <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
                     <input type="text" class="form-control" placeholder="Введите новый пароль" aria-label="Белый пояс"
                            aria-describedby="button-addon2" name="newPassword">
@@ -133,7 +132,7 @@
             </form>
         </td>
         <td>
-            <form action="/changeUserDOB?userID=<?php echo $userid ?>" method="post">
+            <form action="/changeUserDOB?userID=<?php echo $sUser['id'] ?>" method="post">
                 <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
                     <input type="text" class="form-control" placeholder="Введите новую дату рождения *" aria-label="Белый пояс"
                            aria-describedby="button-addon2" name="newDOB">
@@ -144,7 +143,7 @@
     </tr>
     <tr>
         <td>
-            <form action="/addNewRankId?userID=<?php echo $userid ?>" method="post" style="border: 1px solid #e5e5e5; border-radius: 7px;">
+            <form action="/addNewRankId?userID=<?php echo $sUser['id'] ?>" method="post" style="border: 1px solid #e5e5e5; border-radius: 7px;">
                 <label for="" style="margin-top: 10px;">Добавить новую запись о звании</label>
                 <hr>
                 <label for="dateTake">Дата получения</label>
@@ -161,7 +160,7 @@
             </form>
         </td>
         <td>
-            <form action="/addNewPay?userID=<?php echo $userid ?>" method="post" style="border: 1px solid #e5e5e5; border-radius: 7px;">
+            <form action="/addNewPay?userID=<?php echo $sUser['id'] ?>" method="post" style="border: 1px solid #e5e5e5; border-radius: 7px;">
                 <label for="" style="margin-top: 10px;">Добавить новую запись о платеже</label>
                 <hr>
                 <label for="dateTake">Дата платежа</label>
@@ -185,7 +184,7 @@
     </tr>
     <tr>
         <td>
-            <form action="/changeRootUser?userID=<?php echo $userid ?>" method="post">
+            <form action="/changeRootUser?userID=<?php echo $sUser['id'] ?>" method="post">
                 <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
                     <input type="number" class="form-control" placeholder="Введите новое значение доступа" aria-label="Белый пояс"
                            aria-describedby="button-addon2" name="newRoot">

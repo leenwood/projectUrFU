@@ -23,7 +23,7 @@ $rankColor = [
     <html>
 <head>
     <title><?php echo $title ?></title>
-    <link href="<?php echo $bs ?>" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <?php echo $bs ?>
     <link href="../templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
     <link rel="stylesheet" href="templates/css/light/tmpStyle.css">
     <style>
