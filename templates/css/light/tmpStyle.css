@@ -60,7 +60,9 @@ img {
   border-color: #6c757d;
 }
 .menu1 {
-  background-color: #f1f1f1;
+  border: 1px solid #e9e9e9;
+  border-top: 0px solid white;
+  border-bottom: 0px solid white;
   padding: 10px 20px;
   position: relative;
 }
@@ -111,7 +113,9 @@ img {
   left: 20px;
 }
 .menu-content1 {
-  background-color: #f1f1f1;
+  border: 1px solid #e9e9e9;
+  border-top: 0px solid white;
+  border-bottom: 0px solid white;
   min-height: 64%;
   padding: 10px 20px;
 }

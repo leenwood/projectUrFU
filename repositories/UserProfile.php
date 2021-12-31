@@ -9,71 +9,12 @@ class UserProfile
         $this->connection = $connection;
     }
 
-    /**
-     * Возращает номер звания
-     */
-    public function getcurRank()
-    {
-        $sql = sprintf("SELECT curRank FROM users WHERE id = %s", $_COOKIE['pAccount']);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-    /***
-     * получить звание из бд
-     * @return mixed
-     */
-    public function getRankName()
-    {
-        $sql = sprintf("SELECT rank FROM users WHERE id = %s", $_COOKIE['pAccount']);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-    /***
-     * получить иио
-     * @return mixed
-     */
-    public function getFio()
-    {
-        $sql = sprintf("SELECT surname, username, secondname FROM users WHERE id = %s", $_COOKIE['pAccount']);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-    public function getDob($id)
-    {
-        $sql = sprintf("SELECT dateBirth FROM users WHERE id = %s", $id);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
     public function getAllRank()
     {
         $sql = sprintf("SELECT * FROM ranks WHERE id = %s", $_COOKIE['pAccount']);
         $statement = $this->connection->prepare($sql);
         $statement->execute();
         return $statement->fetchAll();
-    }
-
-    public function getAdminStatus($id)
-    {
-        $sql = sprintf("SELECT root FROM users WHERE id = %s", $id);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-    public function getUserFio($id)
-    {
-        $sql = sprintf("SELECT surname, username, secondname FROM users WHERE id = %s", $id);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
     }
 
     public function getPayments()
@@ -98,30 +39,6 @@ class UserProfile
         {
             return false;
         }
-    }
-
-    public function getUserRank($id)
-    {
-        $sql = sprintf("SELECT rank FROM users WHERE id = %s", $id);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-    public function getUserClub($id)
-    {
-        $sql = sprintf("SELECT club FROM users WHERE id = %s", $id);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-    public function getUserCurRank($id)
-    {
-        $sql = sprintf("SELECT curRank FROM users WHERE id = %s", $id);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
     }
 
     public function changeRank($id, $newRank)
@@ -162,6 +79,14 @@ class UserProfile
     public function getAllUsers()
     {
         $sql = sprintf('SELECT * FROM users');
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function getSeminars($id)
+    {
+        $sql = sprintf('SELECT * FROM seminars WHERE id = %s', $id);
         $statement = $this->connection->prepare($sql);
         $statement->execute();
         return $statement->fetchAll();

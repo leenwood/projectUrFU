@@ -6,7 +6,13 @@
     <link rel="stylesheet" href="templates/css/light/tmpStyle.css">
     <style>
         .container {
-
+        td {
+            padding: 5px;
+            width: 14%;
+        }
+        thead {
+            background-color: #e9e9e9;
+        }
         }
     </style>
 </head>
@@ -77,6 +83,64 @@
                                 Информация отсутствует.
                             </p>
                         <?php endif; ?>
+                </div>
+            </div>
+            <hr style="width: 85%; margin: 0 auto;">
+            <div class="card" style='width: 85%; min-height: 105px; margin: 0 auto;'>
+                <div class="card-header" style="background-color: white">
+                    Инфмаорция о семенараха. <br><?php echo $user['surname'] ?> <?php echo $user['username'] ?> <?php echo $user['secondname'] ?>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <table style="width: 100%; clear: both; margin: 0 auto;">
+                            <thead>
+                            <tr>
+                                <td>
+                                    ИД семенара
+                                </td>
+                                <td>
+                                    Дата
+                                </td>
+                                <td>
+                                    Регион
+                                </td>
+                                <td>
+                                    Экзаменатор
+                                </td>
+                                <td>
+                                    Дата экзамена
+                                </td>
+                                <td>
+                                    Тренер
+                                </td>
+                                <td>
+                                    Клуб
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php var_dump($seminars);?>
+                            <?php foreach($seminars as $key => $value): ?>
+                                <tr>
+                                    <?php
+                                    var_dump($value);
+                                    ?>
+                                    <?php if($adminStatus > 1):?>
+                                        <td><a style="text-decoration: none;" href="/admin/search?userID=<?php echo $value['id']?>"><?php echo $value['id']?></a></td>
+                                    <?php else: ?>
+                                        <td><?php echo $value['id']?></td>
+                                    <?php endif; ?>
+                                    <td><?php echo $value['username']?></td>
+                                    <td><?php echo $value['surname']?></td>
+                                    <td><?php echo $value['secondname']?></td>
+                                    <td><?php echo $rankName[$value['curRank']] ?></td>
+                                    <td><?php echo $value['rank']?></td>
+                                    <td><?php echo $value['club']?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </blockquote>
                 </div>
             </div>
         </div>

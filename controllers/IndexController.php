@@ -53,9 +53,11 @@ class IndexController extends BaseController
         $tmpUser = $this->UP->getUser($_COOKIE['pAccount']);
         $getRank = $this->UP->getAllRank();
         $payments = $this->UP->getPayments();
+        $seminars = $this->UP->getSeminars($_COOKIE['pAccount']);
         return new Response(
             $this->render('main', [
                 'title' => "Имя Фамилия пользователя",
+                'seminars' => $seminars,
                 'rankName' => $this->rankName,
                 'rankColor' => $this->rankColor,
                 'bs' => $this->bootstrap,
@@ -73,7 +75,6 @@ class IndexController extends BaseController
 
     public function usersListAction(Request $request)
     {
-        $checkAdmin = $this->UP->getAdminStatus($_COOKIE['pAccount']);
         $allUsers = $this->UP->getAllUsers();
         return new Response(
             $this->render('usersList', [
@@ -81,7 +82,8 @@ class IndexController extends BaseController
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
                 'allUsers' => $allUsers,
-                'adminStatus' => $checkAdmin['root'],
+                'rankName' => $this->rankName,
+                'rankColor' => $this->rankColor,
             ])
         );
     }
