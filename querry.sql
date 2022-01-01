@@ -19,7 +19,8 @@ CREATE TABLE  IF NOT EXISTS ranks (
     id int (7),
     dateTake date not null,
     urlImg varchar(255) not null,
-    nameRank int(6) not null
+    nameRank int(6) not null,
+    prevRank int(6) not null
     ) ENGINE=InnoDB;
 
 CREATE TABLE  IF NOT EXISTS payments (
@@ -37,7 +38,10 @@ CREATE TABLE  IF NOT EXISTS seminars (
     region int(6) not null,
     examiner varchar(255) not null,
     examDate date not null,
-    trainer varchar(255) not null
+    trainer varchar(255) not null,
+    prevRank int(6) not null,
+    newRank int(6) not null,
+    clubOrg varchar(255) not null
     ) ENGINE=InnoDB;
 
 ALTER TABLE ranks add CONSTRAINT FK_ranks_users

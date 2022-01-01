@@ -1,3 +1,5 @@
+<?php var_dump($_GET) ?>
+
 <head>
     <link rel="stylesheet" href="/templates/css/light/style.css">
 

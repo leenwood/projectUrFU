@@ -76,4 +76,10 @@ $routes = [
         'controller' => 'admin',
         'action' => 'changeRootUser'
     ],
+
+    '/test' =>
+    [
+        'controller' => 'upload',
+        'action' => 'upSeminarsForm'
+    ],
 ];

@@ -143,7 +143,7 @@
     </tr>
     <tr>
         <td>
-            <form action="/addNewRankId?userID=<?php echo $sUser['id'] ?>" method="post" style="border: 1px solid #e5e5e5; border-radius: 7px;">
+            <form action="/addNewRankId?userID=<?php echo $sUser['id'] ?>&prevRank=<?php echo $sUser['curRank'] ?>" method="post" style="border: 1px solid #e5e5e5; border-radius: 7px;">
                 <label for="" style="margin-top: 10px;">Добавить новую запись о звании</label>
                 <hr>
                 <label for="dateTake">Дата получения</label>

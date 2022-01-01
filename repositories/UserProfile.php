@@ -69,9 +69,9 @@ class UserProfile
         $statement->execute();
     }
 
-    public function addNewRank($id, $dateTake, $rankName)
+    public function addNewRank($id, $dateTake, $rankName, $prevRank)
     {
-        $sql = sprintf("INSERT INTO `ranks` (`rankId`, `id`, `dateTake`, `urlImg`, `nameRank`) VALUES (NULL, '%s', '%s', 'none', '%s')", $id, $dateTake, $rankName);
+        $sql = sprintf("INSERT INTO `ranks` (`rankId`, `id`, `dateTake`, `urlImg`, `nameRank`, `prevRank`) VALUES (NULL, '%s', '%s', 'none', '%s', '%s')", $id, $dateTake, $rankName, $prevRank);
         $statement = $this->connection->prepare($sql);
         $statement->execute();
     }

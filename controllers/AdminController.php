@@ -174,7 +174,8 @@ class AdminController extends BaseController
             $userID = $request->getQueryParameter("userID");
             $dateTake = $request->getRequestParameter('dateTake');
             $rankName = $request->getRequestParameter('rankName');
-            $this->UP->addNewRank($userID, $dateTake, $rankName);
+            $prevRank = $request->getQueryParameter('prevRank');
+            $this->UP->addNewRank($userID, $dateTake, $rankName, $prevRank);
             $sUser = $this->UP->getUser($userID);
             return new Response(
                 $this->render('admin/userProfile', [

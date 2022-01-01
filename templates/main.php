@@ -4,11 +4,11 @@
     <?php echo $bs ?>
     <link href="templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
     <link rel="stylesheet" href="templates/css/light/tmpStyle.css">
+    <meta charset="utf-8">
     <style>
         .container {
         td {
             padding: 5px;
-            width: 14%;
         }
         thead {
             background-color: #e9e9e9;
@@ -99,6 +99,9 @@
                                     ИД семенара
                                 </td>
                                 <td>
+                                    Клуб организатор
+                                </td>
+                                <td>
                                     Дата
                                 </td>
                                 <td>
@@ -115,6 +118,9 @@
                                 </td>
                                 <td>
                                     Клуб
+                                </td>
+                                <td>
+                                    Новое звание
                                 </td>
                             </tr>
                             </thead>

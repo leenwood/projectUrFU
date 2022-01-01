@@ -14,6 +14,7 @@ require_once 'repositories/UserProfile.php';
 
 require_once 'controllers/IndexController.php';
 require_once 'controllers/AdminController.php';
+require_once 'controllers/UploadController.php';
 
 include_once 'config/routes.php';
 include_once 'config/database.php';
@@ -63,6 +64,7 @@ if($route['action'] == 'login' or $route['action'] == 'auth' or $route['action']
 $controllers = [
     'index' => new IndexController($userProfile),
     'admin' => new AdminController($userProfile),
+    'upload' => new UploadController($userProfile),
 ];
 
 $controller = $controllers[$route['controller']];
