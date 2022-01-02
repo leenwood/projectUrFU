@@ -44,7 +44,7 @@ class rankConfig
         ];
 
     protected $statusCode = [
-        0 => 'Sending on server'
+        0 => 'Sent on server'
     ];
 
     public function __construct()

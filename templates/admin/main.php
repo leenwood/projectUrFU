@@ -72,7 +72,7 @@
         </td>
         <td>
             <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">
-                CLEAR BUTTON
+                Создать "ивент страницу" *
             </a>
         </td>
     </tr>
@@ -100,9 +100,14 @@
             </form>
         </td>
         <td>
-            <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">
-                Создать "ивент страницу" *
-            </a>
+            <form action="/seminar/search" method="get">
+                <label for=""> Seminars by ID</label>
+                <div class="input-group mb-3" style="width: 600px; height: 40px; margin: 20px auto;">
+                    <input type="text" class="form-control" placeholder="Input id seminars" aria-label="Белый пояс"
+                           aria-describedby="button-addon2" name="semID">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Найти</button>
+                </div>
+            </form>
         </td>
     </tr>
 </table>

@@ -72,4 +72,28 @@ class UploadController extends BaseController
             ])
         );
     }
+
+    public function searchSemByIdAction(Request $request)
+    {
+        $id = $request->getQueryParameter('semID');
+        $user = $this->UP->takeUserById($id);
+        if($this->UP->checkId($id))
+        {
+            $seminar = $this->UP->getSeminarById($id);
+            return new Response(
+                $this->render(
+                    'upload/sembyId', [
+                    'title' => 'seminars #'.$id,
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                    'seminar' => $seminar,
+                    'user' => $user,
+                ])
+            );
+        }
+        else
+        {
+
+        }
+    }
 }

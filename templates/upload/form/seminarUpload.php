@@ -23,6 +23,9 @@ function findId($arr, $id)
     <link rel="stylesheet" href="templates/css/light/tmpStyle.css">
     <meta charset="utf-8">
     <style>
+        body {
+            padding: 20px 0;
+        }
         table
         {
             text-align: center;
@@ -37,14 +40,14 @@ function findId($arr, $id)
     </style>
 </head>
 <body>
-<div style="width: 15%; margin: 0 auto; border: 1px solid black;">
+<div style="width: 15%; margin: 0 auto;">
 <form action="/uploadConfirm" enctype="multipart/form-data" method="POST">
         <input type="file" name="excelFile" style="margin-bottom: 10px;"> <br>
         <input type="textarea" name="uploadExcel_desc" style="margin-bottom: 10px;"> <br>
         <input type="submit" value="Upload excel" style="margin-bottom: 10px; float: right;">
 </form>
 </div>
-<hr style="clear: both;">
+<hr style="clear: both; margin: 40px auto; width: 85%;">
 <table style="width: 90%; margin: 0 auto;">
     <thead>
     <tr>

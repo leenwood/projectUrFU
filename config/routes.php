@@ -88,4 +88,10 @@ $routes = [
         'controller' => 'upload',
         'action' => 'uploadConfirm'
     ],
+
+    '/seminar/search' =>
+    [
+        'controller' => 'upload',
+        'action' => 'searchSemById'
+    ],
 ];

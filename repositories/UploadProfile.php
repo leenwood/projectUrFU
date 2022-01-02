@@ -17,10 +17,18 @@ class UploadProfile
 
     public function takeUser()
     {
-        $sql = sprintf("select id, surname, username, secondname from users");
+        $sql = sprintf("select id, surname, username, secondname, root from users");
         $statement = $this->connection->prepare($sql);
         $statement->execute();
         return $statement->fetchAll();
+    }
+
+    public function takeUserById($id)
+    {
+        $sql = sprintf("select id, surname, username, secondname, root from users WHERE id = %s", $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
     }
 
     public function getUploadSeminar()
@@ -37,4 +45,29 @@ class UploadProfile
         $statement = $this->connection->prepare($sql);
         $statement->execute();
     }
+
+    public function checkId($id)
+    {
+        $sql = sprintf("SELECT * FROM uploadExcel WHERE uid = %s", $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $tmp = $statement->fetch();
+        if($tmp)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function getSeminarById($id)
+    {
+        $sql = sprintf("SELECT * FROM uploadExcel WHERE uid = %s", $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
 }
