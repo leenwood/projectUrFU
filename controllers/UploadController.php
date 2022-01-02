@@ -11,6 +11,7 @@ class UploadController extends BaseController
     protected $style = "light";
     protected $rankName = [];
     protected $rankColor = [];
+    protected $statusCode = [];
     public $name = 'index';
 
     /**
@@ -18,13 +19,14 @@ class UploadController extends BaseController
      */
     protected $UP;
 
-    public function __construct(UserProfile $UserProfile)
+    public function __construct(UploadProfile $uploadProfile)
     {
-        $this->UP = $UserProfile;
+        $this->UP = $uploadProfile;
         require_once './lang/ru/rankConfig.php';
         $tmpClass = new rankConfig();
         $this->rankColor = $tmpClass->getRankColor();
         $this->rankName = $tmpClass->getRankName();
+        $this->statusCode = $tmpClass->getStatusCode();
     }
 
     protected function makeRankArray($inArray = [])
@@ -39,20 +41,28 @@ class UploadController extends BaseController
 
     public function upSeminarsFormAction(Request $request)
     {
+        $seminarUpload = $this->UP->getUploadSeminar();
+        $users = $this->UP->takeUser();
         return new Response(
             $this->render(
                 'upload/form/seminarUpload', [
                 'title' => 'Upload file',
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'semUploads' => $seminarUpload,
+                'users' => $users,
+                'statusCode' => $this->statusCode,
             ])
         );
     }
 
     public function uploadConfirmAction(Request $request)
     {
-        move_uploaded_file($_FILES['excelFile']['tmp_name'], 'upload/excel/testname');
+        $date = time();
+        $name = 'Seminar'.$date.'.xls';
+        move_uploaded_file($_FILES['excelFile']['tmp_name'], 'upload/excel/'.$name);
+        $desc = $request->getRequestParameter('uploadExcel_desc');
+        $this->UP->uploadAddLogs($_COOKIE['pAccount'], $date, $_FILES['excelFile']['size'], $desc, $name);
         return new Response(
             $this->render(
                 'template', [

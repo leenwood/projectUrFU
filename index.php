@@ -11,6 +11,7 @@ require_once 'validator/ArticleValidator.php';
 
 
 require_once 'repositories/UserProfile.php';
+require_once 'repositories/UploadProfile.php';
 
 require_once 'controllers/IndexController.php';
 require_once 'controllers/AdminController.php';
@@ -30,6 +31,7 @@ $connection = new PDO( $dsn, $database['username'], $database['password'], [
 ]);
 
 $userProfile = new UserProfile($connection);
+$uploadProfile = new UploadProfile($connection);
 $user = new userData($connection);
 
 try {
@@ -64,7 +66,7 @@ if($route['action'] == 'login' or $route['action'] == 'auth' or $route['action']
 $controllers = [
     'index' => new IndexController($userProfile),
     'admin' => new AdminController($userProfile),
-    'upload' => new UploadController($userProfile),
+    'upload' => new UploadController($uploadProfile),
 ];
 
 $controller = $controllers[$route['controller']];

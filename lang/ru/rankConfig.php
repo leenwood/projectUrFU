@@ -43,6 +43,10 @@ class rankConfig
         16 => '#000000',
         ];
 
+    protected $statusCode = [
+        0 => 'Sending on server'
+    ];
+
     public function __construct()
     {
 
@@ -56,5 +60,10 @@ class rankConfig
     public function getRankColor()
     {
         return $this->rankColor;
+    }
+
+    public function getStatusCode()
+    {
+        return $this->statusCode;
     }
 }
