@@ -82,4 +82,10 @@ $routes = [
         'controller' => 'upload',
         'action' => 'upSeminarsForm'
     ],
+
+    '/uploadConfirm' =>
+    [
+        'controller' => 'upload',
+        'action' => 'uploadConfirm'
+    ],
 ];

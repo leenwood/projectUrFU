@@ -42,10 +42,23 @@ class UploadController extends BaseController
         return new Response(
             $this->render(
                 'upload/form/seminarUpload', [
-                'title' => 'Put your file',
+                'title' => 'Upload file',
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
                 'error' => "You don't have permission"
+            ])
+        );
+    }
+
+    public function uploadConfirmAction(Request $request)
+    {
+        move_uploaded_file($_FILES['excelFile']['tmp_name'], 'upload/excel/testname');
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'upload seminar',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
             ])
         );
     }

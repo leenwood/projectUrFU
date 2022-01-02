@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title><?php echo $user['rank'] ?> - <?php echo $user['username'] ?> <?php echo $user['surname'] ?></title>
+    <title><?php echo $title ?></title>
     <?php echo $bs ?>
     <link href="templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
     <link rel="stylesheet" href="templates/css/light/tmpStyle.css">
@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<form action="/uploadConfirm" enctype="multipart/form-data" method="POST">
+    <input type="file" name="excelFile">
+    <input type="submit" value="Upload excel">
+</form>
 
 
 </body>
