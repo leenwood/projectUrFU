@@ -23,6 +23,7 @@ class UploadController extends BaseController
     {
         $this->UP = $uploadProfile;
         require_once './lang/ru/rankConfig.php';
+        require_once './lib/csvReader/csvReader.php';
         $tmpClass = new rankConfig();
         $this->rankColor = $tmpClass->getRankColor();
         $this->rankName = $tmpClass->getRankName();
@@ -59,7 +60,7 @@ class UploadController extends BaseController
     public function uploadConfirmAction(Request $request)
     {
         $date = time();
-        $name = 'Seminar'.$date.'.xls';
+        $name = 'Seminar'.$date.'.csv';
         move_uploaded_file($_FILES['excelFile']['tmp_name'], 'upload/excel/'.$name);
         $desc = $request->getRequestParameter('uploadExcel_desc');
         $this->UP->uploadAddLogs($_COOKIE['pAccount'], $date, $_FILES['excelFile']['size'], $desc, $name);
@@ -101,7 +102,10 @@ class UploadController extends BaseController
     {
         $id = $request->getQueryParameter('semID');
         $seminar = $this->UP->getSeminarById($id);
-
+        $csvReader = new csvReader($seminar['nameFile']);
+        $csvReader->fOpen();
+        $csvReader->fClose();
+        die;
 
     }
 }
