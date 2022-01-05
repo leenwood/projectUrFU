@@ -94,4 +94,10 @@ $routes = [
         'controller' => 'upload',
         'action' => 'searchSemById'
     ],
+
+    '/seminars/update' =>
+    [
+        'controller' => 'upload',
+        'action' => 'updateData'
+    ],
 ];

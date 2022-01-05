@@ -75,6 +75,8 @@ function findId($arr, $id)
         <td>
             status
         </td>
+        <td>
+        </td>
     </tr>
     </thead>
     <tbody>
@@ -109,6 +111,13 @@ function findId($arr, $id)
         <td class="status__code__<?php echo $value['status'] ?>">
             <?php echo $statusCode[$value['status']] ?>
         </td>
+        <?php if($value['status'] == 0): ?>
+        <td>
+            <a href="/seminars/update?semID=<?php echo $value['uid'] ?>" class="btn btn-warning">
+                Update database
+            </a>
+        </td>
+        <?php endif; ?>
     </tr>
     <?php endforeach; ?>
     </tbody>

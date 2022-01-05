@@ -20,6 +20,7 @@ require_once 'controllers/UploadController.php';
 include_once 'config/routes.php';
 include_once 'config/database.php';
 
+
 $router = new Router($routes);
 $request = Request::createFromGlobals();
 

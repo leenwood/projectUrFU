@@ -18,12 +18,15 @@ class UploadController extends BaseController
      * @var UserProfile
      */
     protected $UP;
+    protected $excelReader;
 
     public function __construct(UploadProfile $uploadProfile)
     {
         $this->UP = $uploadProfile;
         require_once './lang/ru/rankConfig.php';
+        require_once './lib/excelReader/excelReader.php';
         $tmpClass = new rankConfig();
+        $this->excelReader = new excelReader();
         $this->rankColor = $tmpClass->getRankColor();
         $this->rankName = $tmpClass->getRankName();
         $this->statusCode = $tmpClass->getStatusCode();
@@ -95,5 +98,13 @@ class UploadController extends BaseController
         {
 
         }
+    }
+
+    public function updateDataAction(Request $request)
+    {
+        $id = $request->getQueryParameter('semID');
+        $seminar = $this->UP->getSeminarById($id);
+        $array = $this->excelReader->getArrayExcel($seminar['nameFile']);
+        var_dump($array);
     }
 }
