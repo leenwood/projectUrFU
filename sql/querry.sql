@@ -41,6 +41,7 @@ CREATE TABLE  IF NOT EXISTS seminars (
     trainer varchar(255) not null,
     prevRank int(6) not null,
     newRank int(6) not null,
+    uidSem int not null,
     clubOrg varchar(255) not null
     ) ENGINE=InnoDB;
 

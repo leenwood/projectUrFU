@@ -105,7 +105,37 @@ class UploadController extends BaseController
         $csvReader = new csvReader($seminar['nameFile']);
         $csvReader->fOpen();
         $csvReader->fClose();
-        die;
+        echo "<pre>";
+        print_r($csvReader->getHeader());
+        echo "<hr>";
+        print_r($this->rankName);
+        $table = $csvReader->getTable();
+        print_r($table);
+        echo "</pre>";
+        /*
+        if($table[0][4] < 0)
+        {
+            return new Response(
+                $this->render(
+                    'template', [
+                    'title' => 'upload seminar',
+                    'bs' => $this->bootstrap,
+                    'style' => $this->style,
+                ])
+            );
+        }
+        $userId = substr($table[0][4], -6);
 
+        $prevRank = array_search($table[0][3], $this->rankName);
+        $newRank = array_search($table[0][13], $this->rankName);
+        $examDate = $this->UP->makeUnix($table[0][12]);
+        $examDate = $this->UP->makeDate($examDate);
+        $semDate = $this->UP->makeUnix($table[0][10]);
+        $semDate = $this->UP->makeDate($semDate);
+
+        $this->UP->inputSem($userId, $semDate, $table[0][6], $table[0][15], $examDate, $table[0][8], $prevRank, $newRank, $id, $table[0][7]);
+
+        МЕХАНИЗМ ДОБАВЛЕНИЯ, РАБОТАЕТ КАК ЧАСЫ!
+        */
     }
 }

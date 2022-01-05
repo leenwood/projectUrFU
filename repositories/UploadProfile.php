@@ -12,7 +12,12 @@ class UploadProfile
 
     public function makeDate($unix)
     {
-        return date('Y-m-d g:i A', $unix);
+        return date('Y-m-d', $unix);
+    }
+
+    public function makeUnix($date)
+    {
+        return strtotime($date);
     }
 
     public function takeUser()
@@ -70,4 +75,13 @@ class UploadProfile
         return $statement->fetch();
     }
 
+    public function inputSem($id, $dateSem, $region, $examiner, $examDate, $trainer, $prevRank, $newRank, $uidSem, $clubOrg)
+    {
+        $sql = sprintf("INSERT INTO `seminars` (`semId`, `id`, `dateSem`, `region`, `examiner`, `examDate`, `trainer`, `prevRank`, `newRank`, `uidSem`, `clubOrg`) 
+        VALUES (NULL, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+            $id, $dateSem, $region, $examiner, $examDate, $trainer, $prevRank, $newRank, $uidSem, $clubOrg);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
+    }
 }

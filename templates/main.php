@@ -6,13 +6,15 @@
     <link rel="stylesheet" href="templates/css/light/tmpStyle.css">
     <meta charset="utf-8">
     <style>
-        .container {
+        table {
+            text-align: center;
+        }
         td {
             padding: 5px;
+            border-bottom: 1px solid #e9e9e9;
         }
         thead {
             background-color: #e9e9e9;
-        }
         }
     </style>
 </head>
@@ -125,23 +127,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php var_dump($seminars);?>
                             <?php foreach($seminars as $key => $value): ?>
                                 <tr>
-                                    <?php
-                                    var_dump($value);
-                                    ?>
-                                    <?php if($adminStatus > 1):?>
-                                        <td><a style="text-decoration: none;" href="/admin/search?userID=<?php echo $value['id']?>"><?php echo $value['id']?></a></td>
-                                    <?php else: ?>
-                                        <td><?php echo $value['id']?></td>
-                                    <?php endif; ?>
-                                    <td><?php echo $value['username']?></td>
-                                    <td><?php echo $value['surname']?></td>
-                                    <td><?php echo $value['secondname']?></td>
-                                    <td><?php echo $rankName[$value['curRank']] ?></td>
-                                    <td><?php echo $value['rank']?></td>
-                                    <td><?php echo $value['club']?></td>
+                                    <td><?php echo $value['uidSem']?></td>
+                                    <td><?php echo $value['clubOrg']?></td>
+                                    <td><?php echo $value['dateSem']?></td>
+                                    <td><?php echo $value['region']?></td>
+                                    <td><?php echo $value['examiner'] ?></td>
+                                    <td><?php echo $value['examDate']?></td>
+                                    <td><?php echo $value['trainer']?></td>
+                                    <td><?php echo $user['club'] ?></td>
+                                    <td><?php echo $rankName[$value['newRank']] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
