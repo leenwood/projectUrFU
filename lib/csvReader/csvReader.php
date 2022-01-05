@@ -21,8 +21,11 @@ class csvReader
         $rows = array();
         echo "<pre>";
         while (($data = fgetcsv($this->file , 0, ";")) !== FALSE) {
-
-            $rows[] = $data;
+            $rows = array();
+            foreach ($data as $key => $value)
+            {
+                array_push($rows, iconv("WINDOWS-1251", "UTF-8", $value));
+            }
             print_r($rows);
 
         }
