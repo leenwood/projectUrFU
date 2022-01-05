@@ -8,6 +8,8 @@ class csvReader
 
     protected $file;
 
+    protected $table = [ ];
+
     public function __construct($name)
     {
         $this->name = $name;
@@ -18,17 +20,16 @@ class csvReader
     {
 
         $this->file = fopen($this->url, "r");
-        $rows = array();
-        echo "<pre>";
         while (($data = fgetcsv($this->file , 0, ";")) !== FALSE) {
             $rows = array();
             foreach ($data as $key => $value)
             {
                 array_push($rows, iconv("WINDOWS-1251", "UTF-8", $value));
             }
-            print_r($rows);
-
+            array_push($this->table, $rows);
         }
+        echo "<pre>";
+        print_r($this->table);
         echo "</pre>";
     }
 
