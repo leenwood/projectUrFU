@@ -49,15 +49,14 @@ try {
 
 if($route['action'] == 'login' or $route['action'] == 'auth' or $route['action'] == 'registr')
 {
-    setcookie("root", "true");
+
 } else
 {
     if($user->authBool($_COOKIE['pAccount'], $_COOKIE['password']))
     {
-        setcookie("root", "False/True");
+
     } else
     {
-        setcookie("root", "False/False");
         $route = [
             'controller' => 'index',
             'action' => 'login'

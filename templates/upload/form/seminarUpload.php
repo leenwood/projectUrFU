@@ -118,6 +118,20 @@ function findId($arr, $id)
             </a>
         </td>
         <?php endif; ?>
+        <?php if($value['status'] == 1): ?>
+            <td>
+                <a href="/seminars/deleteFileFromServer?semID=<?php echo $value['uid'] ?>&fileName=<?php echo $value['nameFile'] ?>" class="btn btn-success">
+                    Delete File
+                </a>
+            </td>
+        <?php endif; ?>
+        <?php if($value['status'] == 2): ?>
+            <td>
+                <a href="#" class="btn btn-danger">
+                    Button
+                </a>
+            </td>
+        <?php endif; ?>
     </tr>
     <?php endforeach; ?>
     </tbody>

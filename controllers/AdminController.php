@@ -66,40 +66,28 @@ class AdminController extends BaseController
     public function adminUserAction(Request $request)
     {
         $user = $this->UP->getUser($_COOKIE['pAccount']);
-        if($user['root'] > 1)
+        $userID = $request->getQueryParameter("userID");
+        if(!$this->UP->checkId($userID))
         {
-            $userID = $request->getQueryParameter("userID");
-            if(!$this->UP->checkId($userID))
-            {
-                return new Response(
-                    $this->render('admin/main', [
-                        'error' => 'Пользователя нет в системе',
-                        'title' => 'A: '.$user['surname'].' '.$user['username'],
-                        'bs' => $this->bootstrap,
-                        'style' => $this->style,
-                        'user' => $user,
-                    ])
-                );
-            }
-            $sUser = $this->UP->getUser($userID);
             return new Response(
-                $this->render('admin/userProfile', [
+                $this->render('admin/main', [
+                    'error' => 'Пользователя нет в системе',
                     'title' => 'A: '.$user['surname'].' '.$user['username'],
                     'bs' => $this->bootstrap,
                     'style' => $this->style,
                     'user' => $user,
-                    'sUser' => $sUser,
-                    'rankName' => $this->rankName,
                 ])
             );
         }
+        $sUser = $this->UP->getUser($userID);
         return new Response(
-            $this->render(
-                'template', [
-                'title' => 'TEMP PAGE',
+            $this->render('admin/userProfile', [
+                'title' => 'A: '.$user['surname'].' '.$user['username'],
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'user' => $user,
+                'sUser' => $sUser,
+                'rankName' => $this->rankName,
             ])
         );
     }
@@ -107,30 +95,18 @@ class AdminController extends BaseController
     public function changeRankAction(Request $request)
     {
         $user = $this->UP->getUser($_COOKIE['pAccount']);
-        if($user['root'] > 1)
-        {
-            $userID = $request->getQueryParameter("userID");
-            $newRank = $request->getRequestParameter('newRank');
-            $this->UP->changeRank($userID, $newRank);
-            $sUser = $this->UP->getUser($userID);
-            return new Response(
-                $this->render('admin/userProfile', [
-                    'title' => 'A: '.$user['surname'].' '.$user['username'],
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'user' => $user,
-                    'sUser' => $sUser,
-                    'redi' => '1',
-                ])
-            );
-        }
+        $userID = $request->getQueryParameter("userID");
+        $newRank = $request->getRequestParameter('newRank');
+        $this->UP->changeRank($userID, $newRank);
+        $sUser = $this->UP->getUser($userID);
         return new Response(
-            $this->render(
-                'template', [
-                'title' => 'TEMP PAGE',
+            $this->render('admin/userProfile', [
+                'title' => 'A: '.$user['surname'].' '.$user['username'],
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'user' => $user,
+                'sUser' => $sUser,
+                'redi' => '1',
             ])
         );
     }
@@ -138,30 +114,18 @@ class AdminController extends BaseController
     public function changeClubAction(Request $request)
     {
         $user = $this->UP->getUser($_COOKIE['pAccount']);
-        if($user['root'] > 1)
-        {
-            $userID = $request->getQueryParameter("userID");
-            $newRank = $request->getRequestParameter('newClub');
-            $this->UP->changeClub($userID, $newRank);
-            $sUser = $this->UP->getUser($userID);
-            return new Response(
-                $this->render('admin/userProfile', [
-                    'title' => 'A: '.$user['surname'].' '.$user['username'],
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'user' => $user,
-                    'sUser' => $sUser,
-                    'redi' => '1',
-                ])
-            );
-        }
+        $userID = $request->getQueryParameter("userID");
+        $newRank = $request->getRequestParameter('newClub');
+        $this->UP->changeClub($userID, $newRank);
+        $sUser = $this->UP->getUser($userID);
         return new Response(
-            $this->render(
-                'template', [
-                'title' => 'TEMP PAGE',
+            $this->render('admin/userProfile', [
+                'title' => 'A: '.$user['surname'].' '.$user['username'],
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'user' => $user,
+                'sUser' => $sUser,
+                'redi' => '1',
             ])
         );
     }
@@ -169,32 +133,20 @@ class AdminController extends BaseController
     public function addNewRankAction(Request $request)
     {
         $user = $this->UP->getUser($_COOKIE['pAccount']);
-        if($user['root'] > 1)
-        {
-            $userID = $request->getQueryParameter("userID");
-            $dateTake = $request->getRequestParameter('dateTake');
-            $rankName = $request->getRequestParameter('rankName');
-            $prevRank = $request->getQueryParameter('prevRank');
-            $this->UP->addNewRank($userID, $dateTake, $rankName, $prevRank);
-            $sUser = $this->UP->getUser($userID);
-            return new Response(
-                $this->render('admin/userProfile', [
-                    'title' => 'A: '.$user['surname'].' '.$user['username'],
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'user' => $user,
-                    'sUser' => $sUser,
-                    'redi' => '1',
-                ])
-            );
-        }
+        $userID = $request->getQueryParameter("userID");
+        $dateTake = $request->getRequestParameter('dateTake');
+        $rankName = $request->getRequestParameter('rankName');
+        $prevRank = $request->getQueryParameter('prevRank');
+        $this->UP->addNewRank($userID, $dateTake, $rankName, $prevRank);
+        $sUser = $this->UP->getUser($userID);
         return new Response(
-            $this->render(
-                'template', [
-                'title' => 'TEMP PAGE',
+            $this->render('admin/userProfile', [
+                'title' => 'A: '.$user['surname'].' '.$user['username'],
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'user' => $user,
+                'sUser' => $sUser,
+                'redi' => '1',
             ])
         );
     }
@@ -203,30 +155,18 @@ class AdminController extends BaseController
     public function changeUserPasswordAction(Request $request)
     {
         $user = $this->UP->getUser($_COOKIE['pAccount']);
-        if($user['root'] > 1)
-        {
-            $userID = $request->getQueryParameter("userID");
-            $newPas = $request->getRequestParameter('newPassword');
-            $this->UP->changePassword($userID, $newPas);
-            $sUser = $this->UP->getUser($userID);
-            return new Response(
-                $this->render('admin/userProfile', [
-                    'title' => "Имя Фамилия пользователя",
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'user' => $user,
-                    'sUser' => $sUser,
-                    'redi' => '1',
-                ])
-            );
-        }
+        $userID = $request->getQueryParameter("userID");
+        $newPas = $request->getRequestParameter('newPassword');
+        $this->UP->changePassword($userID, $newPas);
+        $sUser = $this->UP->getUser($userID);
         return new Response(
-            $this->render(
-                'template', [
-                'title' => 'TEMP PAGE',
+            $this->render('admin/userProfile', [
+                'title' => "Имя Фамилия пользователя",
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'user' => $user,
+                'sUser' => $sUser,
+                'redi' => '1',
             ])
         );
     }
@@ -234,25 +174,13 @@ class AdminController extends BaseController
     public function createNewUserFormAction(Request $request)
     {
         $user = $this->UP->getUser($_COOKIE['pAccount']);
-        if($user['root'] > 1)
-        {
-            return new Response(
-                $this->render('admin/form/createUser', [
-                    'title' => "Имя Фамилия пользователя",
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'user' => $user,
-                    'formName' => 'Форма создания нового пользователя',
-                ])
-            );
-        }
         return new Response(
-            $this->render(
-                'template', [
-                'title' => 'TEMP PAGE',
+            $this->render('admin/form/createUser', [
+                'title' => "Имя Фамилия пользователя",
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'user' => $user,
+                'formName' => 'Форма создания нового пользователя',
             ])
         );
     }
@@ -260,35 +188,23 @@ class AdminController extends BaseController
     public function createNewUserAction(Request $request)
     {
         $user = $this->UP->getUser($_COOKIE['pAccount']);
-        if($user['root'] > 1)
+        $newUser = $request->getRequestParameter('formUser');
+        if($this->UP->createUser($newUser))
         {
-            $newUser = $request->getRequestParameter('formUser');
-            if($this->UP->createUser($newUser))
-            {
-                $msg = 'Пользователь успешно создан';
-            }
-            else
-            {
-                $error = 'Не удалось создать пользователя';
-            }
-            return new Response(
-                $this->render('admin/main', [
-                    'title' => "Имя Фамилия пользователя",
-                    'msg' => $msg,
-                    'error' => $error,
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'user' => $user,
-                ])
-            );
+            $msg = 'Пользователь успешно создан';
+        }
+        else
+        {
+            $error = 'Не удалось создать пользователя';
         }
         return new Response(
-            $this->render(
-                'template', [
-                'title' => 'TEMP PAGE',
+            $this->render('admin/main', [
+                'title' => "Имя Фамилия пользователя",
+                'msg' => $msg,
+                'error' => $error,
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'user' => $user,
             ])
         );
     }
@@ -296,30 +212,18 @@ class AdminController extends BaseController
     public function changeRootUserAction(Request $request)
     {
         $user = $this->UP->getUser($_COOKIE['pAccount']);
-        if($user['root'] > 1)
-        {
-            $userID = $request->getQueryParameter("userID");
-            $newPas = $request->getRequestParameter('newRoot');
-            $this->UP->changeRoot($userID, $newPas);
-            $sUser = $this->UP->getUser($userID);
-            return new Response(
-                $this->render('admin/userProfile', [
-                    'title' => "Имя Фамилия пользователя",
-                    'bs' => $this->bootstrap,
-                    'style' => $this->style,
-                    'user' => $user,
-                    'sUser' => $sUser,
-                    'redi' => '1',
-                ])
-            );
-        }
+        $userID = $request->getQueryParameter("userID");
+        $newPas = $request->getRequestParameter('newRoot');
+        $this->UP->changeRoot($userID, $newPas);
+        $sUser = $this->UP->getUser($userID);
         return new Response(
-            $this->render(
-                'template', [
-                'title' => 'TEMP PAGE',
+            $this->render('admin/userProfile', [
+                'title' => "Имя Фамилия пользователя",
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'error' => "You don't have permission"
+                'user' => $user,
+                'sUser' => $sUser,
+                'redi' => '1',
             ])
         );
     }

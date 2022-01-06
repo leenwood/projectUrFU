@@ -82,6 +82,12 @@ class UploadProfile
             $id, $dateSem, $region, $examiner, $examDate, $trainer, $prevRank, $newRank, $uidSem, $clubOrg);
         $statement = $this->connection->prepare($sql);
         $statement->execute();
-        return $statement->fetch();
+    }
+
+    public function updateStatus($uid, $status)
+    {
+        $sql = sprintf("UPDATE uploadExcel SET status = %s WHERE uid = %s", $status, $uid);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
     }
 }

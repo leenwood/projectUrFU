@@ -77,7 +77,7 @@ $routes = [
         'action' => 'changeRootUser'
     ],
 
-    '/test' =>
+    '/uploadCSVform' =>
     [
         'controller' => 'upload',
         'action' => 'upSeminarsForm'
@@ -99,5 +99,11 @@ $routes = [
     [
         'controller' => 'upload',
         'action' => 'updateData'
+    ],
+
+    '/seminars/deleteFileFromServer' =>
+    [
+        'controller' => 'upload',
+        'action' => 'deleteFileFromServer'
     ],
 ];

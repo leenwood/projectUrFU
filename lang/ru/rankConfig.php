@@ -44,7 +44,9 @@ class rankConfig
         ];
 
     protected $statusCode = [
-        0 => 'Sent on server'
+        0 => 'Sent on server',
+        1 => 'Update information',
+        2 => 'File delete. Table update'
     ];
 
     public function __construct()

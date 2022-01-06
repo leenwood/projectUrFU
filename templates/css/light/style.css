@@ -45,6 +45,18 @@ body {
     border-radius: 10px;
 }
 
+.status__code__1 {
+    background-color: #cbffc8;
+    color: #00460b;
+    border-radius: 10px;
+}
+
+.status__code__2 {
+    background-color: #ECD5D8;
+    color: #BC2A4D;
+    border-radius: 10px;
+}
+
 a {
     text-decoration: none;
 }

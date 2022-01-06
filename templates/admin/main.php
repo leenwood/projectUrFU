@@ -110,6 +110,18 @@
             </form>
         </td>
     </tr>
+    <tr>
+        <td>
+            <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">
+                Загрузить таблицу с пользователями *
+            </a>
+        </td>
+        <td>
+            <a href="/uploadCSVform" class="btn btn-warning" style="width: 600px; height: 40px;">
+                Загрузить таблицу семенара
+            </a>
+        </td>
+    </tr>
 </table>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

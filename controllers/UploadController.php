@@ -108,11 +108,7 @@ class UploadController extends BaseController
         $csvReader = new csvReader($seminar['nameFile']);
         $csvReader->fOpen();
         $csvReader->fClose();
-        echo "<pre>";
-        print_r($csvReader->getHeader());
-        echo "<hr>";
         $table = $csvReader->getTable();
-        echo "</pre>";
         foreach ($table as $key => $value)
         {
             if(empty($value[4]))
@@ -127,11 +123,22 @@ class UploadController extends BaseController
             $examDate = $this->UP->makeDate($examDate);
             $semDate = $this->UP->makeUnix($value[10]);
             $semDate = $this->UP->makeDate($semDate);
+            $this->UP->inputSem($userId, $semDate, $value[6], $value[15], $examDate, $value[8], $prevRank, $newRank, $id, $value[7]);
+            $this->userProfile->addNewRank($userId, $examDate, $newRank, $prevRank);
+            $this->userProfile->updateCurRank($userId, $newRank);
             var_dump($userId, $semDate, $value[6], $value[15], $examDate, $value[8], $prevRank, $newRank, $id, $value[7]);
-//            $this->UP->inputSem($userId, $semDate, $table[0][6], $table[0][15], $examDate, $table[0][8], $prevRank, $newRank, $id, $table[0][7]);
-//            $this->userProfile->addNewRank($userId, $examDate, $newRank, $prevRank);
-//            $this->userProfile->updateCurRank($userId, $newRank);
+            echo "<br>";
         }
+        $this->UP->updateStatus($id, 1);
         die;
+        return null;
+    }
+
+    public function deleteFileFromServerAction(Request $request)
+    {
+        $id = $request->getQueryParameter('semID');
+        $nameFile = $request->getQueryParameter('fileName');
+        unlink('./upload/excel/'.$nameFile);
+        $this->UP->updateStatus($id, 2);
     }
 }
