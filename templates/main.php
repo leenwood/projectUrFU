@@ -9,10 +9,12 @@
         table {
             text-align: center;
         }
+
         td {
             padding: 5px;
             border-bottom: 1px solid #e9e9e9;
         }
+
         thead {
             background-color: #e9e9e9;
         }

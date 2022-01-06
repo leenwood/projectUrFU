@@ -69,7 +69,7 @@ if($route['action'] == 'login' or $route['action'] == 'auth' or $route['action']
 $controllers = [
     'index' => new IndexController($userProfile),
     'admin' => new AdminController($userProfile),
-    'upload' => new UploadController($uploadProfile),
+    'upload' => new UploadController($uploadProfile, $userProfile),
 ];
 
 $controller = $controllers[$route['controller']];

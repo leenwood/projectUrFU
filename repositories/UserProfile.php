@@ -113,4 +113,11 @@ class UserProfile
         $statement->execute();
         return $statement->fetch();
     }
+
+    public function updateCurRank($id, $rank)
+    {
+        $sql = sprintf('UPDATE users SET curRank = %s WHERE id = %s', $rank, $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+    }
 }
