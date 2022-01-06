@@ -65,6 +65,14 @@ if($route['action'] == 'login' or $route['action'] == 'auth' or $route['action']
     }
 }
 
+if($route['controller'] == 'upload' or $route['controller'] == 'admin')
+{
+    if($user->checkRoot($_COOKIE['pAccount']) < 2)
+    {
+        $route['controller'] = 'index';
+        $route['action'] = 'index';
+    }
+}
 
 $controllers = [
     'index' => new IndexController($userProfile),

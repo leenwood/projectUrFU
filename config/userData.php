@@ -71,4 +71,15 @@ class userData
             return False;
         }
     }
+
+    public function checkRoot($pAccount)
+    {
+        $sqlTmp = 'SELECT root FROM users WHERE id = :uid LIMIT 1';
+        $statement = $this->connection->prepare($sqlTmp);
+        $statement->execute([
+            "uid" => $pAccount
+        ]);
+        $retPas = $statement->fetch();
+        return $retPas['root'];
+    }
 }
