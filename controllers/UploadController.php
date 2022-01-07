@@ -126,12 +126,16 @@ class UploadController extends BaseController
             $this->UP->inputSem($userId, $semDate, $value[6], $value[15], $examDate, $value[8], $prevRank, $newRank, $id, $value[7]);
             $this->userProfile->addNewRank($userId, $examDate, $newRank, $prevRank);
             $this->userProfile->updateCurRank($userId, $newRank);
-            var_dump($userId, $semDate, $value[6], $value[15], $examDate, $value[8], $prevRank, $newRank, $id, $value[7]);
-            echo "<br>";
         }
         $this->UP->updateStatus($id, 1);
-        die;
-        return null;
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'Return home',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+            ])
+        );
     }
 
     public function deleteFileFromServerAction(Request $request)
