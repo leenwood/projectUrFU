@@ -106,4 +106,10 @@ $routes = [
         'controller' => 'upload',
         'action' => 'deleteFileFromServer'
     ],
+
+    '/users/upload' =>
+    [
+        'controller' => 'upload',
+        'action' => 'userTable'
+    ],
 ];

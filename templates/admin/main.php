@@ -112,8 +112,8 @@
     </tr>
     <tr>
         <td>
-            <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">
-                Загрузить таблицу с пользователями *
+            <a href="/users/upload" class="btn btn-warning" style="width: 600px; height: 40px;">
+                Загрузить таблицу с пользователями
             </a>
         </td>
         <td>

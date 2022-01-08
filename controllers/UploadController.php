@@ -109,6 +109,9 @@ class UploadController extends BaseController
         $csvReader->fOpen();
         $csvReader->fClose();
         $table = $csvReader->getTable();
+        echo "<pre>";
+        var_dump($table);
+        echo "</pre>";
         foreach ($table as $key => $value)
         {
             if(empty($value[4]))
@@ -144,5 +147,25 @@ class UploadController extends BaseController
         $nameFile = $request->getQueryParameter('fileName');
         unlink('./upload/excel/'.$nameFile);
         $this->UP->updateStatus($id, 2);
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'Return home',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+            ])
+        );
+    }
+
+    public function userTableAction(Request $request)
+    {
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'Return home',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+            ])
+        );
     }
 }

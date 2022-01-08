@@ -17,14 +17,18 @@ class csvReader
     protected $url = './upload/excel/';
 
     protected $file;
+    protected $codeFrom;
+    protected $codeTo;
 
     protected $table = [ ];
     protected $header = [ ];
 
-    public function __construct($name)
+    public function __construct($name, $codeFrom = 'WINDOWS-1251', $codeTo = 'UTF-8')
     {
         $this->name = $name;
         $this->url .= $name;
+        $this->codeFrom = $codeFrom;
+        $this->codeTo = $codeTo;
     }
 
     public function fOpen()
@@ -36,7 +40,7 @@ class csvReader
             $rows = array();
             foreach ($data as $key => $value)
             {
-                array_push($rows, iconv("WINDOWS-1251", "UTF-8", $value));
+                array_push($rows, iconv($this->codeFrom, $this->codeTo, $value));
             }
             if($flag)
             {
