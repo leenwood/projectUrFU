@@ -112,4 +112,10 @@ $routes = [
         'controller' => 'upload',
         'action' => 'userTable'
     ],
+
+    '/users/UploadConfirm' =>
+    [
+        'controller' => 'upload',
+        'action' => 'usersTableConfirm'
+    ],
 ];

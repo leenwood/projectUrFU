@@ -44,9 +44,25 @@ class UploadProfile
         return $statement->fetchAll();
     }
 
-    public function uploadAddLogs($id, $date, $size, $desc, $name)
+    public function getUploadUsers()
+    {
+        $sql = sprintf("select * from uploadExcelUsers");
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+
+    public function uploadAddSemLogs($id, $date, $size, $desc, $name)
     {
         $sql = sprintf("INSERT INTO `uploadExcel` (`uid`, `id`, `dateUpload`, `fileSize`, `descr`, `nameFile`, `status`) VALUES (NULL, '%s', '%s', '%s', '%s', '%s','0')", $id, $date, $size, $desc, $name);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+    }
+
+    public function uploadAddUsersLogs($id, $date, $size, $desc, $name)
+    {
+        $sql = sprintf("INSERT INTO `uploadExcelUsers` (`uid`, `id`, `dateUpload`, `fileSize`, `descr`, `nameFile`, `status`) VALUES (NULL, '%s', '%s', '%s', '%s', '%s','0')", $id, $date, $size, $desc, $name);
         $statement = $this->connection->prepare($sql);
         $statement->execute();
     }
@@ -57,14 +73,18 @@ class UploadProfile
         $statement = $this->connection->prepare($sql);
         $statement->execute();
         $tmp = $statement->fetch();
-        if($tmp)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        if($tmp) return true;
+        else return false;
+    }
+
+    public function checkIdRez($id)
+    {
+        $sql = sprintf("SELECT * FROM uploadExcelUsers WHERE uid = %s", $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $tmp = $statement->fetch();
+        if($tmp) return true;
+        else return false;
     }
 
     public function getSeminarById($id)

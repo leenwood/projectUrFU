@@ -66,7 +66,7 @@ class UploadController extends BaseController
         $name = 'Seminar'.$date.'.csv';
         move_uploaded_file($_FILES['excelFile']['tmp_name'], 'upload/excel/'.$name);
         $desc = $request->getRequestParameter('uploadExcel_desc');
-        $this->UP->uploadAddLogs($_COOKIE['pAccount'], $date, $_FILES['excelFile']['size'], $desc, $name);
+        $this->UP->uploadAddSemLogs($_COOKIE['pAccount'], $date, $_FILES['excelFile']['size'], $desc, $name);
         return new Response(
             $this->render(
                 'template', [
@@ -109,9 +109,6 @@ class UploadController extends BaseController
         $csvReader->fOpen();
         $csvReader->fClose();
         $table = $csvReader->getTable();
-        echo "<pre>";
-        var_dump($table);
-        echo "</pre>";
         foreach ($table as $key => $value)
         {
             if(empty($value[4]))
@@ -159,13 +156,39 @@ class UploadController extends BaseController
 
     public function userTableAction(Request $request)
     {
+        $seminarUpload = $this->UP->getUploadUsers();
+        $users = $this->UP->takeUser();
+
+        return new Response(
+            $this->render(
+                'upload/form/usersUpload', [
+                'title' => 'Upload Users',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'semUploads' => $seminarUpload,
+                'users' => $users,
+                'statusCode' => $this->statusCode,
+            ])
+        );
+    }
+
+    public function usersTableConfirmAction(Request $request)
+    {
+        $date = time();
+        $name = 'Users'.$date.'.csv';
+        move_uploaded_file($_FILES['excelFile']['tmp_name'], 'upload/excel/'.$name);
+        $desc = $request->getRequestParameter('uploadExcel_desc');
+
+        $this->UP->uploadAddUsersLogs($_COOKIE['pAccount'], $date, $_FILES['excelFile']['size'], $desc, $name);
+
         return new Response(
             $this->render(
                 'template', [
-                'title' => 'Return home',
+                'title' => 'upload seminar',
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
             ])
         );
     }
+
 }

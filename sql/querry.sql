@@ -76,3 +76,17 @@ CREATE TABLE  IF NOT EXISTS uploadExcel (
 ALTER TABLE uploadExcel add CONSTRAINT FK_uploadExcel_users
     FOREIGN KEY uploadExcel(id)
     REFERENCES users(id);
+
+CREATE TABLE  IF NOT EXISTS uploadExcelUsers (
+    uid INT (27) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id int (7),
+    dateUpload int not null,
+    fileSize int not null,
+    descr text not null,
+    nameFile varchar(255) not null,
+    status int not null
+    ) ENGINE=InnoDB;
+
+ALTER TABLE uploadExcelUsers add CONSTRAINT FK_uploadExcelUsers_users
+    FOREIGN KEY uploadExcelUsers(id)
+    REFERENCES users(id);
