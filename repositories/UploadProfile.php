@@ -95,6 +95,14 @@ class UploadProfile
         return $statement->fetch();
     }
 
+    public function getUsersTableById($id)
+    {
+        $sql = sprintf("SELECT * FROM uploadExcelUsers WHERE uid = %s", $id);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
     public function inputSem($id, $dateSem, $region, $examiner, $examDate, $trainer, $prevRank, $newRank, $uidSem, $clubOrg)
     {
         $sql = sprintf("INSERT INTO `seminars` (`semId`, `id`, `dateSem`, `region`, `examiner`, `examDate`, `trainer`, `prevRank`, `newRank`, `uidSem`, `clubOrg`) 
@@ -107,6 +115,13 @@ class UploadProfile
     public function updateStatus($uid, $status)
     {
         $sql = sprintf("UPDATE uploadExcel SET status = %s WHERE uid = %s", $status, $uid);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+    }
+
+    public function updateStatusUsers($uid, $status)
+    {
+        $sql = sprintf("UPDATE uploadExcelUsers SET status = %s WHERE uid = %s", $status, $uid);
         $statement = $this->connection->prepare($sql);
         $statement->execute();
     }

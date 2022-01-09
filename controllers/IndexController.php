@@ -76,6 +76,7 @@ class IndexController extends BaseController
     public function usersListAction(Request $request)
     {
         $allUsers = $this->UP->getAllUsers();
+        $user = $this->UP->getUser($_COOKIE['pAccount']);
         return new Response(
             $this->render('usersList', [
                 'title' => "Список пользователей",
@@ -84,6 +85,7 @@ class IndexController extends BaseController
                 'allUsers' => $allUsers,
                 'rankName' => $this->rankName,
                 'rankColor' => $this->rankColor,
+                'user' => $user,
             ])
         );
     }

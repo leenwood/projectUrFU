@@ -118,7 +118,7 @@ function findId($arr, $id)
             </td>
             <?php if($value['status'] == 0): ?>
                 <td>
-                    <a href="/seminars/update?semID=<?php echo $value['uid'] ?>" class="btn btn-warning">
+                    <a href="/users/updateDataBase?tableID=<?php echo $value['uid'] ?>" class="btn btn-warning">
                         Update database
                     </a>
                 </td>

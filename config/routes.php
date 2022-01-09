@@ -118,4 +118,10 @@ $routes = [
         'controller' => 'upload',
         'action' => 'usersTableConfirm'
     ],
+
+    '/users/updateDataBase' =>
+    [
+    'controller' => 'upload',
+        'action' => 'usersUploadData'
+    ],
 ];

@@ -49,7 +49,7 @@
     <tbody>
     <?php foreach($allUsers as $key => $value): ?>
         <tr>
-            <?php if($adminStatus > 1):?>
+            <?php if($user['root'] > 1):?>
                 <td><a style="text-decoration: none;" href="/admin/search?userID=<?php echo $value['id']?>"><?php echo $value['id']?></a></td>
             <?php else: ?>
                 <td><?php echo $value['id']?></td>

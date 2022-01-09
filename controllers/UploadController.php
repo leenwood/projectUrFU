@@ -191,4 +191,63 @@ class UploadController extends BaseController
         );
     }
 
+    public function usersUploadDataAction(Request $request)
+    {
+        $id = $request->getQueryParameter('tableID');
+        $seminar = $this->UP->getUsersTableById($id);
+        $csvReader = new csvReader($seminar['nameFile']);
+        $csvReader->fOpen();
+        $csvReader->fClose();
+        $table = $csvReader->getTable();
+        echo "<pre>";
+        foreach ($table as $key => $value)
+        {
+            $user = [];
+            $flag = false;
+            foreach ($value as $item)
+            {
+                if(!isset($item))
+                {
+                    $flag = true;
+                }
+            }
+
+            if($flag)
+            {
+                continue;
+            }
+
+            $dateBirth = $this->UP->makeUnix($value[5]);
+            $dateBirth = $this->UP->makeDate($dateBirth);
+
+            $joinDate = $this->UP->makeUnix($value[9]);
+            $joinDate = $this->UP->makeDate($joinDate);
+
+            $user = [
+                'surname' => $value[0],
+                'username' => $value[1],
+                'secondname' => $value[2],
+                'curRank' => array_search($value[3], $this->rankName),
+                'root' => $value[4],
+                'dateBirth' => $dateBirth,
+                'password' => $value[6],
+                'joinDate' => $joinDate,
+                'club' => $value[7],
+                'rank' => $value[8],
+            ];
+            $this->userProfile->createUser($user);
+        }
+
+        echo "</pre>";
+//        $this->UP->updateStatusUsers($id, 1);
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'Return home',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+            ])
+        );
+    }
+
 }
