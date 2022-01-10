@@ -239,7 +239,23 @@ class UploadController extends BaseController
         }
 
         echo "</pre>";
-//        $this->UP->updateStatusUsers($id, 1);
+        $this->UP->updateStatusUsers($id, 1);
+        return new Response(
+            $this->render(
+                'template', [
+                'title' => 'Return home',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+            ])
+        );
+    }
+
+    public function deleteFileFromServerUsersAction(Request $request)
+    {
+        $id = $request->getQueryParameter('tableID');
+        $nameFile = $request->getQueryParameter('fileName');
+        unlink('./upload/excel/'.$nameFile);
+        $this->UP->updateStatusUsers($id, 2);
         return new Response(
             $this->render(
                 'template', [

@@ -125,12 +125,12 @@ function findId($arr, $id)
             <?php endif; ?>
             <?php if($value['status'] == 1): ?>
                 <td>
-                    <a href="/seminars/deleteFileFromServer?semID=<?php echo $value['uid'] ?>&fileName=<?php echo $value['nameFile'] ?>" class="btn btn-success">
+                    <a href="/users/deleteFileFromServer?tableID=<?php echo $value['uid'] ?>&fileName=<?php echo $value['nameFile'] ?>" class="btn btn-success">
                         Delete File
                     </a>
                 </td>
             <?php endif; ?>
-            <?php if($value['status'] == 2): ?>
+            <?php if($value['status'] == 3): ?>
                 <td>
                     <a href="#" class="btn btn-danger">
                         Button

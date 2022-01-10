@@ -121,7 +121,13 @@ $routes = [
 
     '/users/updateDataBase' =>
     [
-    'controller' => 'upload',
+        'controller' => 'upload',
         'action' => 'usersUploadData'
+    ],
+
+    '/users/deleteFileFromServer' =>
+    [
+        'controller' => 'upload',
+        'action' => 'deleteFileFromServerUsers'
     ],
 ];

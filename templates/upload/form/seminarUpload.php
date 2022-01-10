@@ -125,7 +125,7 @@ function findId($arr, $id)
                 </a>
             </td>
         <?php endif; ?>
-        <?php if($value['status'] == 2): ?>
+        <?php if($value['status'] == 4): ?>
             <td>
                 <a href="#" class="btn btn-danger">
                     Button
