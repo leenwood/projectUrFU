@@ -33,6 +33,8 @@ class UploadController extends BaseController
         $this->statusCode = $tmpClass->getStatusCode();
     }
 
+    /** refactor this */
+
     public function upSeminarsFormAction(Request $request)
     {
         $seminarUpload = $this->UP->getUploadSeminar();
