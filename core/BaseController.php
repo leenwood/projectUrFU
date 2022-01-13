@@ -24,18 +24,6 @@ abstract class BaseController
      * @param $url
      * @return Response
      */
-    protected function redirect($url)
-    {
-        return new Response(
-            '/', '301', 'Moved'
-        );
-    }
-
-    protected function makeRankArray($inputArray = [])
-    {
-        $ansArray = $inputArray;
-        return $ansArray;
-    }
 
 
     public function __call($name, $arguments)
