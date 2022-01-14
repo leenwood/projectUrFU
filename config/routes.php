@@ -131,13 +131,13 @@ $routes = [
         'action' => 'deleteFileFromServerUsers'
     ],
 
-    '/test' =>
+    '/createEvent' =>
     [
         'controller' => 'event',
         'action' => 'testMoment'
     ],
 
-    '/deleteFile' =>
+    '/deleteEvent' =>
     [
         'controller' => 'event',
         'action' => 'deleteFile'
