@@ -134,7 +134,7 @@ $routes = [
     '/createEvent' =>
     [
         'controller' => 'event',
-        'action' => 'testMoment'
+        'action' => 'createFile'
     ],
 
     '/deleteEvent' =>
