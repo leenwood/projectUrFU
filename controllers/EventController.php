@@ -5,7 +5,7 @@ class EventController
 
     /* Создание фалйа */
 
-    public function testMomentAction(Request $request)
+    public function createFileAction(Request $request)
     {
         $myfile = fopen("templates/events/testfile.html", "w");
         fwrite($myfile, '<h1>Тестовая страница</h1> <br> <p>А тут текст типо</p>');
