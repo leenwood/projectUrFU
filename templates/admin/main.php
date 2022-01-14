@@ -78,9 +78,12 @@
     </tr>
     <tr>
         <td>
-            <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">
-                Скачать БД целиком *
-            </a>
+            <form method="get" action="db.csv">
+                <button type='submit' class="btn btn-warning" style="width: 600px; height: 40px;">
+                    Скачать БД целиком *
+                </button>
+            </form>
+
         </td>
         <td>
             <a href="#" class="btn btn-warning" style="width: 600px; height: 40px;">

@@ -1,5 +1,3 @@
-<?php var_dump($_GET) ?>
-
 <head>
     <link rel="stylesheet" href="/templates/css/light/style.css">
 
@@ -9,7 +7,12 @@
     <?php if(isset($error)):?>
         <div class="warning"><?php echo $error ?></div>
     <?php endif; ?>
-    <a href="/" class="btn">Return to Home</a>
+
+    <h3>
+        Действие выполненно, вы можете вернуться обратно или же перейти на начальную страницу.
+    </h3>
+    <a href="/" class="btn">Return to Home</a> <br>
+
+    <a href="/uploadCSVform" class="btn"> Return Back</a>
 </div>
-<?php var_dump($_FILES); ?>
 </body>

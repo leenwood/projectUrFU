@@ -1,7 +1,5 @@
 <?php
 
-
-
 require_once 'config/userData.php';
 
 require_once 'core/Request.php';
@@ -18,6 +16,7 @@ require_once 'repositories/UploadProfile.php';
 require_once 'controllers/IndexController.php';
 require_once 'controllers/AdminController.php';
 require_once 'controllers/UploadController.php';
+require_once 'controllers/EventController.php';
 
 include_once 'config/routes.php';
 include_once 'config/database.php';
@@ -77,6 +76,7 @@ $controllers = [
     'index' => new IndexController($userProfile),
     'admin' => new AdminController($userProfile),
     'upload' => new UploadController($uploadProfile, $userProfile),
+    'event' => new EventController(),
 ];
 
 $controller = $controllers[$route['controller']];

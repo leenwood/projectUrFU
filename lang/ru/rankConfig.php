@@ -22,7 +22,9 @@ class rankConfig
         15 => '9 Дан',
         16 => '10 Дан',
         ];
+    
         /* Color with '#'. HTML COLOR */
+
     protected $rankColor = [
         0 => '#f2f3f4',
         1 => '#ffba00',
