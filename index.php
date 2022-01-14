@@ -76,7 +76,7 @@ $controllers = [
     'index' => new IndexController($userProfile),
     'admin' => new AdminController($userProfile),
     'upload' => new UploadController($uploadProfile, $userProfile),
-    'event' => new EventController(),
+    'event' => new EventController($userProfile),
 ];
 
 $controller = $controllers[$route['controller']];

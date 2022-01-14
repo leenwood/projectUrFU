@@ -27,11 +27,6 @@ class IndexController extends BaseController
         $this->rankName = $tmpClass->getRankName();
     }
 
-    protected function makeRankArray($inArray = [])
-    {
-        return parent::makeRankArray($inArray);
-    }
-
     public function notfoundAction(Request $request)
     {
         return new Response(

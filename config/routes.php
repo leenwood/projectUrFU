@@ -142,4 +142,10 @@ $routes = [
         'controller' => 'event',
         'action' => 'deleteFile'
     ],
+
+    '/event/createForm' =>
+    [
+        'controller' => 'event',
+        'action' => 'createForm'
+    ],
 ];
