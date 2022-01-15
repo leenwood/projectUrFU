@@ -23,7 +23,7 @@
 <body>
 <header class="header">
     <nav class="header__nav">
-        <?php if($user['root'] > 1):?>
+        <?php if($user['root'] > 2):?>
             <a href="/adminPanel" class="btn btn-primary">Панель Администратора</a>
         <?php endif; ?>
         <a href="" class="btn btn-outline-secondary"><?php echo $user['username'] ?> <?php echo $user['surname'] ?></a>
@@ -147,13 +147,17 @@
                     </blockquote>
                 </div>
             </div>
+            <?php if($user['root'] > 0): ?>
+            <hr style="width: 85%; margin: 15px auto;">
+            <br>
+            <div style="text-align: justify; width: 100%;">
+                    <a href="/event/createForm" class="btn btn-primary">View Events Page</a>
+                    <a href="/event/createForm" class="btn btn-primary">Create Event Page</a>
+                    <a href="/adminPanel" class="btn btn-primary">Delete Event Page</a>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
-<div class="footer1">
-    <p style="  ">
-        test
-    </p>
-</div>
 </body>
 </html>
