@@ -12,6 +12,7 @@ require_once 'validator/ArticleValidator.php';
 
 require_once 'repositories/UserProfile.php';
 require_once 'repositories/UploadProfile.php';
+require_once 'repositories/EventProfile.php';
 
 require_once 'controllers/IndexController.php';
 require_once 'controllers/AdminController.php';
@@ -34,6 +35,7 @@ $connection = new PDO( $dsn, $database['username'], $database['password'], [
 
 $userProfile = new UserProfile($connection);
 $uploadProfile = new UploadProfile($connection);
+$eventProfile = new EventProfile($connection);
 $user = new userData($connection);
 
 try {
@@ -76,7 +78,7 @@ $controllers = [
     'index' => new IndexController($userProfile),
     'admin' => new AdminController($userProfile),
     'upload' => new UploadController($uploadProfile, $userProfile),
-    'event' => new EventController($userProfile),
+    'event' => new EventController($userProfile, $eventProfile),
 ];
 
 $controller = $controllers[$route['controller']];

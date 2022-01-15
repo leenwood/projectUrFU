@@ -5,13 +5,15 @@ class EventController extends BaseController
 
     protected $bootstrap = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">';
     protected $style = "light";
-    protected $UP;
+    protected $userProfile;
+    protected $eventProfile;
     protected $rankColor;
     protected $rankName;
 
-    public function __construct(UserProfile $UserProfile)
+    public function __construct(UserProfile $UserProfile, EventProfile $eventProfile)
     {
-        $this->UP = $UserProfile;
+        $this->userProfile = $UserProfile;
+        $this->eventProfile = $eventProfile;
         require_once './lang/ru/rankConfig.php';
         $tmpClass = new rankConfig();
         $this->rankColor = $tmpClass->getRankColor();
