@@ -1,8 +1,27 @@
+<?php
+
+function makeDate($unix)
+{
+    return date('Y-m-d g:i A', $unix);
+}
+
+function findId($arr, $id)
+{
+    $arrLen = count($arr);
+    for($i=0; $i < $arrLen; $i++) {
+        if($arr[$i]['id'] == $id) return $i;
+    }
+    return -1;
+}
+
+
+
+?>
 <html>
 <head>
     <title><?php echo $title ?></title>
     <?php echo $bs ?>
-    <link href="templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
+    <link href="../templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
     <style>
     /* update */
     </style>
@@ -15,42 +34,35 @@
     <thead>
     <tr>
         <td>
-            Номер пользователя
+            Номер страницы (UID)
         </td>
         <td>
-            Имя
+            ID администратора
         </td>
         <td>
-            Фамилия
+            ФИО администратора
         </td>
         <td>
-            Дата рождения
+            Дата загрузки
         </td>
         <td>
-            Пояс
-        </td>
-        <td>
-            Звания
-        </td>
-        <td>
-            Клуб
+            Статус
         </td>
     </tr>
     </thead>
     <tbody>
-    <?php foreach($allUsers as $key => $value): ?>
+    <?php foreach($events as $key => $value): ?>
         <tr>
-            <?php if($user['root'] > 1):?>
-                <td><a style="text-decoration: none;" href="/admin/search?userID=<?php echo $value['id']?>"><?php echo $value['id']?></a></td>
-            <?php else: ?>
-                <td><?php echo $value['id']?></td>
-            <?php endif; ?>
-            <td><?php echo $value['username']?></td>
-            <td><?php echo $value['surname']?></td>
-            <td><?php echo $value['secondname']?></td>
-            <td><?php echo $rankName[$value['curRank']] ?></td>
-            <td><?php echo $value['rank']?></td>
-            <td><?php echo $value['club']?></td>
+            <?php $id = findId($users, $value['id']) ?>
+            <td><?php echo $value['uid'] ?></td>
+            <td><?php echo $value['id'] ?></td>
+            <td>
+                <?php echo $users[$id]['surname'] ?>
+                <?php echo $users[$id]['username'] ?>
+                <?php echo $users[$id]['secondname'] ?>
+            </td>
+            <td><?php echo makeDate($value['dateUpload'])?></td>
+            <td><?php echo $status[$value['status']]?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

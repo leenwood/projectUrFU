@@ -51,6 +51,10 @@ class rankConfig
         2 => 'File delete. Table update'
     ];
 
+    protected $statusEvent = [
+        0 => 'Страница доступна'
+    ];
+
     public function __construct()
     {
 
@@ -69,5 +73,10 @@ class rankConfig
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    public function getStatusEvent()
+    {
+        return $this->statusEvent;
     }
 }

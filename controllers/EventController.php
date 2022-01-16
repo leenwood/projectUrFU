@@ -7,8 +7,8 @@ class EventController extends BaseController
     protected $style = "light";
     protected $userProfile;
     protected $eventProfile;
-    protected $rankColor;
-    protected $rankName;
+    protected $status;
+
 
     public function __construct(UserProfile $UserProfile, EventProfile $eventProfile)
     {
@@ -16,8 +16,7 @@ class EventController extends BaseController
         $this->eventProfile = $eventProfile;
         require_once './lang/ru/rankConfig.php';
         $tmpClass = new rankConfig();
-        $this->rankColor = $tmpClass->getRankColor();
-        $this->rankName = $tmpClass->getRankName();
+        $this->status = $tmpClass->getStatusEvent();
     }
 
     /* Создание фалйа */
@@ -28,8 +27,12 @@ class EventController extends BaseController
         $myfile = fopen($path, "w");
         $page = '<head><title>'.$_POST['eventPage']['title'].'</title></head>';
         $page .= "<body>".$_POST['eventPage']['body']."</body>";
+        $dateUpload = time();
+        $this->eventProfile->addLog($_COOKIE['pAccount'], $dateUpload, 20, $_POST['eventPage']['body'], $_POST['eventPage']['title'], 0);
         fwrite($myfile, $page);
         fclose($myfile);
+        echo "Действие успешно выполнено, вернуться на стартовую страницу <br>";
+        echo "<a href='/'>HOME</a>";
     }
 
     /* Удаление файла */
@@ -53,12 +56,16 @@ class EventController extends BaseController
 
     public function viewEventAction(Request $request)
     {
+        $users = $this->userProfile->getAllUsers();
+        $events = $this->eventProfile->getLogs();
         return new Response(
             $this->render('events/form/view_events', [
                 'title' => 'View Events',
                 'bs' => $this->bootstrap,
                 'style' => $this->style,
-                'formName' => 'Форма создания event',
+                'events' => $events,
+                'users' => $users,
+                'status' => $this->status,
             ])
         );
     }
