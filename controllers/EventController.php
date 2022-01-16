@@ -50,4 +50,16 @@ class EventController extends BaseController
             ])
         );
     }
+
+    public function viewEventAction(Request $request)
+    {
+        return new Response(
+            $this->render('events/form/view_events', [
+                'title' => 'View Events',
+                'bs' => $this->bootstrap,
+                'style' => $this->style,
+                'formName' => 'Форма создания event',
+            ])
+        );
+    }
 }

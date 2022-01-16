@@ -1,13 +1,13 @@
 <?php
 
+echo '<head><meta charset="utf-8"></head>';
+
 require_once 'config/userData.php';
 
 require_once 'core/Request.php';
 require_once 'core/Response.php';
 require_once 'core/Router.php';
 require_once 'core/BaseController.php';
-
-require_once 'validator/ArticleValidator.php';
 
 
 require_once 'repositories/UserProfile.php';

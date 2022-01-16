@@ -151,7 +151,7 @@
             <hr style="width: 85%; margin: 15px auto;">
             <br>
             <div style="text-align: justify; width: 100%;">
-                    <a href="/event/createForm" class="btn btn-primary">View Events Page</a>
+                    <a href="/event/viewEvents" class="btn btn-primary">View Events Page</a>
                     <a href="/event/createForm" class="btn btn-primary">Create Event Page</a>
                     <a href="/adminPanel" class="btn btn-primary">Delete Event Page</a>
             </div>
