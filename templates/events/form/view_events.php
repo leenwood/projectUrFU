@@ -4,7 +4,7 @@
     <?php echo $bs ?>
     <link href="templates/css/<?php echo $style ?>/style.css" rel="stylesheet">
     <style>
-
+    /* update */
     </style>
 
 </head>
